@@ -17,8 +17,8 @@ export class AppComponent implements AfterViewInit {
    mesh: any;
 
    ngAfterViewInit() {
-      this.init();
-      this.animate();
+      //this.init();
+      //this.animate();
    }
 
    init() {

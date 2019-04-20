@@ -4,16 +4,17 @@ import {AppStates} from '../../services/app-states';
 
 @Component({
   selector: 'app-debug',
+  providers: [AppStates],
   templateUrl: 'debug.html'
 })
 export default class AppDebugComponent {
   appStatesText: string;
 
-  constructor() {
+  constructor(private appStates: AppStates) {
      this.load();
   }
 
   load() {
-     this.appStatesText = AppStates.toString();
+     this.appStatesText = this.appStates.toString();
   }
 }

@@ -1,13 +1,19 @@
-import {ElementRef} from '@angular/core';
+import {Injectable, ElementRef} from '@angular/core';
 
+declare var JSON: any;
+
+@Injectable()
 export class AppStates {
-
-  constructor(public title: string) {}
 
   static navbarElem: ElementRef;
 
-  static toString() {
-     let buf = 'navbarElem:\n';
+  constructor() {}
+
+  toString() {
+     let buf = 'navbarElem >> ';
+     if (AppStates.navbarElem) {
+        buf += 'offsetHeight:' + AppStates.navbarElem.nativeElement.offsetHeight
+     }
      return buf;
   }
 }
