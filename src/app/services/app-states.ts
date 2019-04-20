@@ -9,7 +9,7 @@ export class AppStates {
 
   constructor() {}
 
-  toString() {
+  static toString() {
      let buf = 'navbarElem >> ';
      if (AppStates.navbarElem) {
         buf += 'offsetHeight:' + AppStates.navbarElem.nativeElement.offsetHeight

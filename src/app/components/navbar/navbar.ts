@@ -1,5 +1,6 @@
 import {Component, ElementRef, ViewChild, AfterViewInit} from '@angular/core';
 import {AppStates} from '../../services/app-states';
+import {AppConfig} from '../../app.config';
 
 
 @Component({
@@ -10,6 +11,8 @@ import {AppStates} from '../../services/app-states';
 })
 export default class NavbarComponent implements AfterViewInit {
    @ViewChild('appNavbar') navbarElement: ElementRef;
+
+   showDebugRoute = AppConfig.showDebugRoute;
 
    constructor(private appStates: AppStates) {}
 
