@@ -1,85 +1,83 @@
-
-// /// <reference path="../../../../node_modules/three/src/Three.d.ts" />
 import * as THREE from 'three';
 
 import {AppService} from '../../services/app-service';
 import {AppStates} from '../../services/app-states';
 
 
-//declare var THREE: any;
-
 export class NeuronsModelView {
 
-   viewScene: THREE.Scene;
-   viewCamera: THREE.PerspectiveCamera
-   viewRender: THREE.WebGLRenderer;
-   showClock = new THREE.Clock();
+   static viewScene: THREE.Scene;
+   static viewCamera: THREE.PerspectiveCamera
+   static viewRender: THREE.WebGLRenderer;
+   static showClock = new THREE.Clock();
+   static appStatesRef: AppStates;
 
-   constructor(private neuronsStageElement: Element, private appService: AppService, private appStates: AppStates) {}
+   constructor(private neuronsStageElement: Element, private appService: AppService, private appStates: AppStates) {
+      NeuronsModelView.appStatesRef = this.appStates;
+   }
 
    create() {
-      this.viewScene = new THREE.Scene();
+      NeuronsModelView.viewScene = new THREE.Scene();
       this.addCameraAndControls();
 
-      this.viewRender = new THREE.WebGLRenderer({ antialias: true });
-      //this.viewRender.setClearColor(new THREE.Color(0xEEEEEE));
-      //NeuronModelView_onWindowResize();
-      this.neuronsStageElement.appendChild(this.viewRender.domElement);
+      NeuronsModelView.viewRender = new THREE.WebGLRenderer({ antialias: true });
+      var vrender = NeuronsModelView.viewRender;
+      vrender.setClearColor(new THREE.Color(0xEEEEEE));
+      NeuronsModelView.onWindowResize();
+      this.neuronsStageElement.appendChild(vrender.domElement);
 
-      window.addEventListener("resize", this.onWindowResize);
+      window.addEventListener("resize", NeuronsModelView.onWindowResize);
 
       this.addBackground();
       this.addShowObjects();
       this.addShowLights();
 
-      this.animate();
+      NeuronsModelView.animate();
    }
 
    addCameraAndControls(): void {
-      /*
       var fov = 30;
       var aspect = this.getCameraAspect();
       var near = 0.1;
       var far = 500;
-      this.viewCamera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-      this.viewCamera.position.x = 0;
-      this.viewCamera.position.y = 2;
-      this.viewCamera.position.z = 12;
+      NeuronsModelView.viewCamera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+      var vcamera = NeuronsModelView.viewCamera;
+      vcamera.position.x = 0;
+      vcamera.position.y = 2;
+      vcamera.position.z = 12;
     
-      var lookAt = new THREE.Vector3(0, 8, -1);
-      this.viewCamera.lookAt(lookAt);
-      */
-      this.viewCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-      this.viewCamera.position.z = 5;
+      var lookAt = new THREE.Vector3(0, 0, 0);
+      vcamera.lookAt(lookAt);
    }
 
    addShowObjects(): void {
-     /*
-     var axisHelper = new THREE.AxisHelper(100);
-     this.viewScene.add(axisHelper);
-     */
+     var vscene =  NeuronsModelView.viewScene;
+
+     var axesHelper = new THREE.AxesHelper(100);
+     vscene.add(axesHelper);
+     
      const geometry = new THREE.BoxGeometry(1, 1, 1);
      const material = new THREE.MeshBasicMaterial({color: 0x00ff00});
      const cube = new THREE.Mesh(geometry, material);
-     this.viewScene.add(cube);
+     vscene.add(cube);
    }
 
    addBackground(): void {
-      //this.viewScene.background = new THREE.Color( 0xcce0ff );
+      NeuronsModelView.viewScene.background = new THREE.Color( 0xcce0ff );
    }
 
    addShowLights(): void {
-      this.viewScene.add( new THREE.AmbientLight( 0xffffff ) );
+      NeuronsModelView.viewScene.add( new THREE.AmbientLight( 0xffffff ) );
       var light1 = new THREE.DirectionalLight( 0xdfebff, 1.75 );
       light1.position.set(50, 200, 100);
       light1.position.multiplyScalar(1.3);
       light1.castShadow = false;
-      this.viewScene.add(light1) ;
+      NeuronsModelView.viewScene.add(light1) ;
     
       var light2 = new THREE.DirectionalLight( 0xdfebff, 0.8 );
       light2.position.set(-250, 510, 1150 );
       light2.castShadow = false;
-      this.viewScene.add(light2);
+      NeuronsModelView.viewScene.add(light2);
    }
 
    getCameraAspect(): number {
@@ -88,21 +86,23 @@ export class NeuronsModelView {
       return window.innerWidth / height;
    }
 
-   onWindowResize() {
-      var navbarHeight =  this.appStates.getNavbarHeight();
+   static onWindowResize() {
+      var navbarHeight =  NeuronsModelView.appStatesRef.getNavbarHeight();
       var height = window.innerHeight - navbarHeight;
-      this.viewRender.setSize(window.innerWidth, height);
+      NeuronsModelView.viewRender.setSize(window.innerWidth, height);
    }
 
-   animate() {
-      requestAnimationFrame(this.animate);
+   static animate() {
+      requestAnimationFrame(NeuronsModelView.animate);
+      if (NeuronsModelView.viewRender == null) {
+         console.error("viewRender is null");
+         return;
+      }
   
-      var deltaTime = this.showClock.getDelta();
-      var elapsedTime = this.showClock.getElapsedTime() * 10;
-   
-      if (this.viewRender != null) {
+      var deltaTime = NeuronsModelView.showClock.getDelta();
+      var elapsedTime = NeuronsModelView.showClock.getElapsedTime() * 10;
       try {
-         this.viewRender.render(this.viewScene, this.viewCamera);
+         NeuronsModelView.viewRender.render(NeuronsModelView.viewScene, NeuronsModelView.viewCamera);
          /*
          if (NeuronModelView.appCamControl instanceof THREE.FirstPersonControls) {
             NeuronModelView.appCamControl.update(deltaTime);
@@ -113,8 +113,5 @@ export class NeuronsModelView {
       } catch(error) {
         console.error("render error " + error);
       }
-    } else {
-       console.error("appRender is null");
-    }
-  }
+   }
 }

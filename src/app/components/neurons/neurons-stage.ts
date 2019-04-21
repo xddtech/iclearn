@@ -46,10 +46,10 @@ export default class NeuronsStageComponent implements AfterViewInit, OnDestroy {
 
   private createShow() {
     if (this.neuronsModelView == null) {
-       var modelView = new NeuronsModelView(this.getNeuronsStageElement(), this.appService, this.appStates);
-       modelView.create();
+       this.neuronsModelView = new NeuronsModelView(this.getNeuronsStageElement(), this.appService, this.appStates);
+       this.neuronsModelView.create();
     } else {
-      this.getNeuronsStageElement().appendChild(this.neuronsModelView.viewRender.domElement);
+      this.getNeuronsStageElement().appendChild(NeuronsModelView.viewRender.domElement);
        console.log("loaded the existing show renderer");
     }
   }
