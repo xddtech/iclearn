@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import NavbarComponent from './components/navbar/navbar';
-import NeuronsViewComponent from './components/neurons/neurons-view';
+import NeuronsStageComponent from './components/neurons/neurons-stage';
 import { AppService } from './services/app-service';
 import { AppStates } from './services/app-states';
 import ModelSourceComponent from './components/model/model-source';
@@ -17,7 +17,7 @@ import AppDebugComponent from './components/debug/debug';
    declarations: [
       AppComponent,
       NavbarComponent,
-      NeuronsViewComponent,
+      NeuronsStageComponent,
       ModelSourceComponent,
       AboutComponent,
       AppDebugComponent
@@ -26,7 +26,7 @@ import AppDebugComponent from './components/debug/debug';
       BrowserModule,
       HttpClientModule,
       RouterModule.forRoot([
-        {path: '',                    component: NeuronsViewComponent},
+        {path: '',                    component: NeuronsStageComponent},
         {path: 'model',               component: ModelSourceComponent},
         {path: 'about',               component: AboutComponent},
         {path: 'debug',               component: AppDebugComponent}

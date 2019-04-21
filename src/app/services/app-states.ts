@@ -9,6 +9,13 @@ export class AppStates {
 
   constructor() {}
 
+  getNavbarHeight(): number {
+     if(AppStates.navbarElem == null) {
+        return 0;
+     }
+     return AppStates.navbarElem.nativeElement.offsetHeight;
+  }
+
   static toString() {
      let buf = 'navbarElem >> ';
      if (AppStates.navbarElem) {
