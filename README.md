@@ -31,8 +31,33 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 I had the same problem. I removed the content of .npmrc, ran the generate command and it worked. After that you can restore the content of your .npmrc if needed.
 1. rename C:\Users\u0105848\.npmrc to bak.npmrc; 2. npm install; 3. change bak.npmrc back
 
-http-server /c/xdd-learn/xdd-deeplearn/dist/xdd-deeplearn
+http-server /c/xdd-learn/iclearn/dist/iclearn
 
 ## THREE
 How could I import @types/three in angular2
 https://stackoverflow.com/questions/41117407/how-could-i-import-types-three-in-angular2
+
+Using Threejs + OrbitContols in TypeScript
+https://stackoverflow.com/questions/19444592/using-threejs-orbitcontols-in-typescript
+
+## Add Controller
+c:\xdd-learn\iclearn\node_modules\three\src\Three.d.ts
+//XDD
+export var TrackballControls: any;
+or
+export class TrackballControls {
+    constructor(camera: any);
+    rotateSpeed: number;
+    zoomSpeed: number;
+    panSpeed: number;
+    noZoom: boolean;
+    noPan: boolean;
+    staticMoving: boolean;
+    dynamicDampingFactor: number;
+    keys: any;
+    addEventListener: any;
+    update(): void;
+}
+
+c:\xdd-learn\iclearn\src\app\controls\TrackballControls.js
+import * as THREE from 'three';

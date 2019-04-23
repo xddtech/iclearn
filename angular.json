@@ -3,8 +3,8 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "xdd-deeplearn": {
-      "root": "deeplearn",
+    "iclearn": {
+      "root": "iclearn",
       "sourceRoot": "src",
       "projectType": "application",
       "prefix": "app",
@@ -13,19 +13,20 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/deeplearn",
+            "outputPath": "dist/iclearn",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/libs"
             ],
             "styles": [
               "src/styles.css"
             ],
-            "scripts": ["libs/TrackballControls.js"],
+            "scripts": [],
             "es5BrowserSupport": true
           },
           "configurations": {
@@ -58,18 +59,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "xdd-deeplearn:build"
+            "browserTarget": "iclearn:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "xdd-deeplearn:build:production"
+              "browserTarget": "iclearn:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "xdd-deeplearn:build"
+            "browserTarget": "iclearn:build"
           }
         },
         "test": {
@@ -132,5 +133,5 @@
       }
     }
   },
-  "defaultProject": "xdd-deeplearn"
+  "defaultProject": "iclearn"
 }
