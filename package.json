@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "start-dist": "http-server /c/xdd-learn/iclearn/dist/iclearn"
+    "start-dist": "http-server /c/xdd-learn/iclearn/dist/iclearn - run cmd"
   },
   "private": true,
   "dependencies": {
