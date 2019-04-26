@@ -1,11 +1,14 @@
 import {Injectable, ElementRef} from '@angular/core';
 
+import {NeuronsModel} from '../components/model/neurons-model';
+
 declare var JSON: any;
 
 @Injectable()
 export class AppStates {
 
   static navbarElem: ElementRef;
+  static neuronsModel: NeuronsModel;
 
   constructor() {}
 
@@ -17,10 +20,19 @@ export class AppStates {
   }
 
   static toString() {
-     let buf = 'navbarElem >> ';
+     var json = {};
      if (AppStates.navbarElem) {
-        buf += 'offsetHeight:' + AppStates.navbarElem.nativeElement.offsetHeight
+        var nav:any = {
+           offsetHeight: AppStates.navbarElem.nativeElement.offsetHeight
+        }
+        json['navbarElem'] = nav;
      }
-     return buf;
+     if (AppStates.neuronsModel) {
+        var model:any = {
+           name: AppStates.neuronsModel.name
+        }
+        json['neuronsModel'] = model;
+     }
+     return JSON.stringify(json);
   }
 }

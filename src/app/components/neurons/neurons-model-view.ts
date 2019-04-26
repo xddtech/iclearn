@@ -3,6 +3,7 @@ import '../../controls/TrackballControls.js';
 
 import {AppService} from '../../services/app-service';
 import {AppStates} from '../../services/app-states';
+import {ModelMain} from './model-main';
 
 // /// <reference path="../../../typings/app.threex.d.ts" />
 
@@ -75,7 +76,10 @@ export class NeuronsModelView {
      const geometry = new THREE.BoxGeometry(1, 1, 1);
      const material = new THREE.MeshBasicMaterial({color: 0x00ff00});
      const cube = new THREE.Mesh(geometry, material);
-     vscene.add(cube);
+     //vscene.add(cube);
+
+     var modelMain = new ModelMain(vscene, this.appService, this.appStates);
+     modelMain.create();
    }
 
    addBackground(): void {
@@ -118,16 +122,13 @@ export class NeuronsModelView {
       var deltaTime = NeuronsModelView.showClock.getDelta();
       var elapsedTime = NeuronsModelView.showClock.getElapsedTime() * 10;
       try {
-         //NeuronsModelView.viewRender.render(NeuronsModelView.viewScene, NeuronsModelView.viewCamera);
          NeuronsModelView.renderScene();
-         NeuronsModelView.appCamControl.update();
-         /*
-         if (NeuronModelView.appCamControl instanceof THREE.FirstPersonControls) {
-            NeuronModelView.appCamControl.update(deltaTime);
-         } else if (NeuronModelView.appCamControl instanceof THREE.TrackballControls) {
-            NeuronModelView.appCamControl.update();
+         if (NeuronsModelView.appCamControl instanceof THREE.TrackballControls) {
+             NeuronsModelView.appCamControl.update();
          }
-         */
+         /*} else if (NeuronModelView.appCamControl instanceof THREE.TrackballControls) {
+            NeuronModelView.appCamControl.update();
+         }*/
       } catch(error) {
         console.error("render error " + error);
       }
