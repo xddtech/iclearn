@@ -3,9 +3,9 @@
       <h4>Debug Info</h4>
    </div>
    <div class="well">
-      <div>App States:</div>
-      <div class="row text-info bg-info small">
-         {{appStatesText}}
+      <div class="row text-left">App States:</div>
+      <div *ngFor="let item of appStatesDebug | keyvalue" class="row text-info bg-info small">
+          <b>{{item.key}}</b>: {{ toString(item.value) }}
       </div>
    </div>
 </div>

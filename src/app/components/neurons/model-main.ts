@@ -1,4 +1,6 @@
+import {Observable} from "rxjs";
 import * as THREE from 'three';
+
 
 import {AppService} from '../../services/app-service';
 import {AppStates} from '../../services/app-states';
@@ -6,7 +8,7 @@ import {NeuronsModel} from '../model/neurons-model';
 
 export class ModelMain {
    rootGroup: THREE.Group;
-   static neuronsModel: NeuronsModel;
+   neuronsModel: NeuronsModel;
 
    constructor(private viewScene: THREE.Scene, private appService: AppService, private appStates: AppStates) {
       this.init();
@@ -15,19 +17,23 @@ export class ModelMain {
    init() {
       this.rootGroup = new THREE.Group();
       this.viewScene.add(this.rootGroup);
-      this.loadModel();
    }
 
-   loadModel() {
-      ModelMain.neuronsModel = NeuronsModel.getDefaultModel();
-      AppStates.neuronsModel = ModelMain.neuronsModel;
+   loadCreateModel() {
+      this.appService.loadDefaultModel().subscribe(model => {
+        this.neuronsModel = model;
+        this.appStates.setCurrentNeuronsModel(this.neuronsModel);
+        this.neuronsModel.preProcess();
+      });
    }
 
    create() {
-    var geometry = new THREE.BoxBufferGeometry( 0.1, 0.1, 0.1 );
-    var material = new THREE.MeshLambertMaterial( { color: Math.random() * 0xffffff } );
-    var object = new THREE.Mesh( geometry, material );
-    this.rootGroup.add(object);
+      var geometry = new THREE.BoxBufferGeometry( 0.1, 0.1, 0.1 );
+      var material = new THREE.MeshLambertMaterial( { color: Math.random() * 0xffffff } );
+      var object = new THREE.Mesh( geometry, material );
+      this.rootGroup.add(object);
+
+      this.loadCreateModel();
    }
 
 }

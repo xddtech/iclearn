@@ -7,13 +7,17 @@ import {AppStates} from '../../services/app-states';
   templateUrl: 'debug.html'
 })
 export default class AppDebugComponent {
-  appStatesText: string;
+  appStatesDebug: any;
 
   constructor() {
      this.load();
   }
 
   load() {
-     this.appStatesText = AppStates.toString();
+     this.appStatesDebug = AppStates.toDebug();
+  }
+
+  toString(obj: any) {
+     return JSON.stringify(obj);
   }
 }
