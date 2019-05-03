@@ -24,7 +24,7 @@ export abstract class ModelCell {
     protected abstract createMesh(): THREE.Mesh;
     protected abstract createExtra():void;
 
-    protected create(viewScene: THREE.Scene): void {
+    create(viewScene: THREE.Scene): void {
        this.createMesh();
 
        this.cellMesh.matrixAutoUpdate = false;

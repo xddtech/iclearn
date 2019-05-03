@@ -9,12 +9,16 @@ export class ModelLayer {
 
     layerType: string;
     layerIndex: number;
+    layerHeight: number;
     cellList: ModelCell[] = [];
 
     constructor() {}
 
     create(viewScene: THREE.Scene) {
-
+       var i: number;
+       for (i = 0; i < this.cellList.length; i++) {
+          this.cellList[i].create(viewScene);
+       }
     }
 
     addCell(cell: ModelCell) {
@@ -30,11 +34,11 @@ export class ModelLayer {
        }
     }
 
-    setupCellLayout(cellLayout: string, layerHeight: number, cellGap: number, maxRowCells: number) {
+    setupCellLayout(cellLayout: string, cellGap: number, maxRowCells: number) {
        if (cellLayout === NeuronsModel.SQUARE) {
-          this.setupCellLayoutSquare(layerHeight, cellGap);
+          this.setupCellLayoutSquare(this.layerHeight, cellGap);
        } else {
-          this.setupCellLayoutRowFill(layerHeight, cellGap, maxRowCells);
+          this.setupCellLayoutRowFill(this.layerHeight, cellGap, maxRowCells);
        }
     }
 

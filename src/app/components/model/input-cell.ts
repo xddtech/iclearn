@@ -1,14 +1,13 @@
-
 import * as THREE from 'three';
 
 import {ModelCell} from './model-cell';
 
-export class NetCell extends ModelCell {
+export class InputCell extends ModelCell {
     cellColor: any = { color: 0x00ff00 }; 
 
     constructor() {
        super();
-       this.cellType = ModelCell.NET;
+       this.cellType = ModelCell.INPUT;
     }
 
     createMesh() {
