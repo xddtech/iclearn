@@ -71,7 +71,7 @@ export class NeuronsModelView {
      var vscene =  NeuronsModelView.viewScene;
 
      var axesHelper = new THREE.AxesHelper(100);
-     vscene.add(axesHelper);
+     //vscene.add(axesHelper);
      
      const geometry = new THREE.BoxGeometry(1, 1, 1);
      const material = new THREE.MeshBasicMaterial({color: 0x00ff00});

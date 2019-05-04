@@ -3,20 +3,14 @@ import * as THREE from 'three';
 
 import {ModelCell} from './model-cell';
 
-export class NetCell extends ModelCell {
-    cellColor: any = { color: 0x00ff00 }; 
+export class NetCell {
 
-    constructor() {
-       super();
-       this.cellType = ModelCell.NET;
-    }
-
-    createMesh() {
-       var geometry = new THREE.BoxBufferGeometry(this.netSize, this.netSize, this.netSize);
-       var material = new THREE.MeshLambertMaterial(this.cellColor);
+    static createMesh(modelCell: ModelCell) {
+       var cellColor = { color: 0x00ff00 };
+       var size = modelCell.netSize;
+       var geometry = new THREE.BoxBufferGeometry(size, size, size);
+       var material = new THREE.MeshLambertMaterial(cellColor);
        var mesh = new THREE.Mesh( geometry, material );
        return mesh;
     }
-
-    createExtra() {}
 }

@@ -71,4 +71,35 @@ export class NeuronsModel {
           layer.setupCellLayout(this.cellLayout, this.cellGap, this.maxRowCells);
        }        
     }
+
+    static clone(modelData: any): NeuronsModel {
+       if (modelData == null) {
+          return null;
+       }
+       var model = Object.assign(new NeuronsModel(), modelData);
+       model.config = ModelConfig.clone(model.config);
+       /*
+       if (modelData.layers) {
+          var layers: ModelLayer[] = [];
+          var i;
+          for (i = 0; i < modelData.layers.length; i++) {
+             var layer = ModelLayer.clone(modelData.layers[i]);
+             layers.push(layer);
+          }
+          model.layers = layers;
+       }
+       */
+       /*
+      if (model.layers) {
+         for (let i = 0; i < model.layers.length; i++) {
+           var layer = ModelLayer.clone(model.layers[i]);
+           model.layers[i] = layer;
+         }
+       }
+       */
+       for (var i in model.layers) {
+          model.layers[i] = ModelLayer.clone(model.layers[i]);
+       }
+       return model;
+    }
 }

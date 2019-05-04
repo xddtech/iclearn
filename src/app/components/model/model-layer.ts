@@ -17,7 +17,7 @@ export class ModelLayer {
     create(viewScene: THREE.Scene) {
        var i: number;
        for (i = 0; i < this.cellList.length; i++) {
-          this.cellList[i].create(viewScene);
+          this.cellList[i].create(viewScene, this.layerType);
        }
     }
 
@@ -72,5 +72,39 @@ export class ModelLayer {
 
     setupCellLayoutSquare(layerHeight: number, cellGap: number) {
 
+    }
+
+    static clone(layerData: any): ModelLayer {
+       if ( layerData == null) {
+         return null;
+       }
+       /*
+       var layer = new ModelLayer();
+       layer = Object.assign(layer, layerData);
+       if (layerData.cellList) {
+          var cellList: ModelCell[] = [];
+          var i;
+          for (i = 0; i < layerData.cellList.length; i++) {
+             var cell = ModelCell.clone(layerData.cellList[i]);
+             cellList.push(cell);
+          }
+          layer.cellList = cellList;
+       }
+       return layer;
+       */
+       /*
+       if (layerData.cellList) {
+          var i;
+          for (i = 0; i < layerData.cellList.length; i++) {
+            layerData.cellList[i] = ModelCell.clone(layerData.cellList[i]);
+          }
+       }
+       var layer = Object.assign(new ModelLayer(), layerData);
+       */
+       var layer = Object.assign(new ModelLayer(), layerData);
+       for (let i in layer.cellList) {
+          layer.cellList[i] = ModelCell.clone(layer.cellList[i]);
+       }
+       return layer;
     }
 }
