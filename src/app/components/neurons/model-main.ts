@@ -11,6 +11,7 @@ declare var $: any;
 export class ModelMain {
    rootGroup: THREE.Group;
    neuronsModel: NeuronsModel;
+   static currentNeoronsModel: NeuronsModel;
 
    constructor(private viewScene: THREE.Scene, private appService: AppService, private appStates: AppStates) {
       this.init();
@@ -27,6 +28,7 @@ export class ModelMain {
    loadCreateModel() {
       this.appService.loadDefaultModel().subscribe(modelData => {
         this.neuronsModel = NeuronsModel.clone(modelData);
+        ModelMain.currentNeoronsModel = this.neuronsModel;
         this.appStates.setCurrentNeuronsModel(this.neuronsModel);
         this.neuronsModel.preProcess();
         this.neuronsModel.create(this.viewScene);

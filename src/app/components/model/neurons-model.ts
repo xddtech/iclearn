@@ -2,6 +2,7 @@
 import {ModelConfig} from './model-config';
 import {ModelLayer} from './model-layer';
 import {ModelCell} from './model-cell';
+import {LinkInfo} from './link-info';
 
 
 export class NeuronsModel {
@@ -30,8 +31,8 @@ export class NeuronsModel {
        if ( !this.validate() ) {
           return;
        }
-
        this.setupLayout();
+       this.setupLayerLinks();
     }
 
     validate(): boolean {
@@ -72,31 +73,55 @@ export class NeuronsModel {
        }        
     }
 
+    setupLayerLinks() {
+       var index: number;
+       for (index = 0; index < this.layers.length - 1; index++) {
+          var layer = this.layers[index];
+          var nextLayer = this.layers[index + 1];
+          this.connectLayers(layer, nextLayer);
+       }
+    }
+
+    connectLayers(layer: ModelLayer, nextLayer: ModelLayer) {
+       switch (layer.linkType) {
+          case ModelLayer.DENSELAYER: {
+             this.connectDenseLayers(layer, nextLayer);
+             break;
+          }
+          default: {
+             console.error('Invalid layer link type at ' + layer.layerIndex);
+             break;
+          }
+       }
+    }
+
+    connectDenseLayers(layer: ModelLayer, nextLayer: ModelLayer) {
+       if (layer.cellList == null || nextLayer.cellList == null) {
+          console.error('Null cellList at one of layers ' + layer.layerIndex + ", " + nextLayer.layerIndex);
+          return;
+       }
+       var i;
+       var j;
+       for (i = 0; i < layer.cellList.length; i++) {
+          for (j = 0; j < nextLayer.cellList.length; j++) {
+             if (nextLayer.cellList[j].cellType != ModelCell.BIAS) {
+                layer.cellList[i].connectTo(i, nextLayer.cellList[j], j);
+             }
+          }
+       }
+    }
+
+    getCellOnLink(linkInfo: LinkInfo): ModelCell {
+       var layer = this.layers[linkInfo.layerIndex];
+       return layer.cellList[linkInfo.seqIndex];
+    }
+
     static clone(modelData: any): NeuronsModel {
        if (modelData == null) {
           return null;
        }
        var model = Object.assign(new NeuronsModel(), modelData);
        model.config = ModelConfig.clone(model.config);
-       /*
-       if (modelData.layers) {
-          var layers: ModelLayer[] = [];
-          var i;
-          for (i = 0; i < modelData.layers.length; i++) {
-             var layer = ModelLayer.clone(modelData.layers[i]);
-             layers.push(layer);
-          }
-          model.layers = layers;
-       }
-       */
-       /*
-      if (model.layers) {
-         for (let i = 0; i < model.layers.length; i++) {
-           var layer = ModelLayer.clone(model.layers[i]);
-           model.layers[i] = layer;
-         }
-       }
-       */
        for (var i in model.layers) {
           model.layers[i] = ModelLayer.clone(model.layers[i]);
        }

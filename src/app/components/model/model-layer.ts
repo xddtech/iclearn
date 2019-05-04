@@ -6,8 +6,10 @@ export class ModelLayer {
     static NET = 'NET';
     static INPUT = 'INPUT';
     static OUTPUT = 'OUTPUT';
+    static DENSELAYER = "DenseLayer";
 
     layerType: string;
+    linkType: string;
     layerIndex: number;
     layerHeight: number;
     cellList: ModelCell[] = [];
@@ -50,7 +52,7 @@ export class ModelLayer {
        var cellsCount = this.cellList.length;
        var zpos = 0;
        var rowCells = cellsCount > maxRowCells? maxRowCells : cellsCount;
-       var xpos = -rowCells * cellGap / 2;
+       var xpos = -(rowCells - 1) * cellGap / 2;
        var ypos = layerHeight;
        var seq: number;
        var rowCount = 0;
@@ -78,29 +80,6 @@ export class ModelLayer {
        if ( layerData == null) {
          return null;
        }
-       /*
-       var layer = new ModelLayer();
-       layer = Object.assign(layer, layerData);
-       if (layerData.cellList) {
-          var cellList: ModelCell[] = [];
-          var i;
-          for (i = 0; i < layerData.cellList.length; i++) {
-             var cell = ModelCell.clone(layerData.cellList[i]);
-             cellList.push(cell);
-          }
-          layer.cellList = cellList;
-       }
-       return layer;
-       */
-       /*
-       if (layerData.cellList) {
-          var i;
-          for (i = 0; i < layerData.cellList.length; i++) {
-            layerData.cellList[i] = ModelCell.clone(layerData.cellList[i]);
-          }
-       }
-       var layer = Object.assign(new ModelLayer(), layerData);
-       */
        var layer = Object.assign(new ModelLayer(), layerData);
        for (let i in layer.cellList) {
           layer.cellList[i] = ModelCell.clone(layer.cellList[i]);
