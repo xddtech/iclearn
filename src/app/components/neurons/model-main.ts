@@ -31,7 +31,7 @@ export class ModelMain {
         ModelMain.currentNeoronsModel = this.neuronsModel;
         this.appStates.setCurrentNeuronsModel(this.neuronsModel);
         this.neuronsModel.preProcess();
-        this.neuronsModel.create(this.viewScene);
+        this.neuronsModel.create(this.rootGroup);
       });
    }
 

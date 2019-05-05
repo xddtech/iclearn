@@ -16,6 +16,10 @@ export class NeuronsModelView {
    static showClock = new THREE.Clock();
    static appStatesRef: AppStates;
 
+   static letAnimateRun: boolean;
+   static animateStartTime: number;
+   static animateLiveSecDefault = 10;
+
    constructor(private neuronsStageElement: Element, private appService: AppService, private appStates: AppStates) {
       NeuronsModelView.appStatesRef = this.appStates;
    }
@@ -31,6 +35,7 @@ export class NeuronsModelView {
       this.neuronsStageElement.appendChild(vrender.domElement);
 
       window.addEventListener("resize", NeuronsModelView.onWindowResize);
+      NeuronsModelView.listenNeuronsStageEvents();
 
       this.addBackground();
       this.addShowObjects();
@@ -110,10 +115,43 @@ export class NeuronsModelView {
       var navbarHeight =  NeuronsModelView.appStatesRef.getNavbarHeight();
       var height = window.innerHeight - navbarHeight;
       NeuronsModelView.viewRender.setSize(window.innerWidth, height);
+      NeuronsModelView.animate();
+   }
+
+   static listenNeuronsStageEvents() {
+      var myObj = document.getElementById('neurons-stage-div');
+      for(var key in myObj){
+         if(key.search('on') === 0) {
+            myObj.addEventListener(key.slice(2), NeuronsModelView.onNeuronsStageEvents);
+            
+         }
+      }
+   }
+
+   static onNeuronsStageEvents(event: any) {
+      if (!NeuronsModelView.letAnimateRun) {
+         NeuronsModelView.animate();
+      }
    }
 
    static animate() {
-      requestAnimationFrame(NeuronsModelView.animate);
+      NeuronsModelView.letAnimateRun = true;
+      NeuronsModelView.animateStartTime = NeuronsModelView.showClock.getElapsedTime();
+
+      NeuronsModelView.animateWork();
+   }
+
+   static animateWork() {
+      if ( !NeuronsModelView.letAnimateRun ) {
+         return;
+      }
+      var dt = NeuronsModelView.showClock.getElapsedTime() - NeuronsModelView.animateStartTime;
+      if (dt > NeuronsModelView.animateLiveSecDefault) {
+         NeuronsModelView.letAnimateRun = false;
+      }
+
+      requestAnimationFrame(NeuronsModelView.animateWork);
+
       if (NeuronsModelView.viewRender == null) {
          console.error("viewRender is null");
          return;

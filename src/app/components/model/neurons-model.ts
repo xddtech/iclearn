@@ -1,4 +1,6 @@
 
+import * as THREE from 'three';
+
 import {ModelConfig} from './model-config';
 import {ModelLayer} from './model-layer';
 import {ModelCell} from './model-cell';
@@ -20,10 +22,10 @@ export class NeuronsModel {
     config: ModelConfig;
     layers: ModelLayer[];
 
-    create(viewScene: THREE.Scene) {
+    create(rootGroup: THREE.Group) {
        var index: number;
        for (index = 0; index < this.layers.length; index++) {
-          this.layers[index].create(viewScene);
+          this.layers[index].create(rootGroup);
        }
     }
 
@@ -100,12 +102,11 @@ export class NeuronsModel {
           console.error('Null cellList at one of layers ' + layer.layerIndex + ", " + nextLayer.layerIndex);
           return;
        }
-       var i;
-       var j;
-       for (i = 0; i < layer.cellList.length; i++) {
-          for (j = 0; j < nextLayer.cellList.length; j++) {
-             if (nextLayer.cellList[j].cellType != ModelCell.BIAS) {
-                layer.cellList[i].connectTo(i, nextLayer.cellList[j], j);
+       for (let i in layer.cellList) {
+          for (let j in nextLayer.cellList) {
+             var jcell = nextLayer.cellList[j];
+             if (jcell.cellType != ModelCell.BIAS) {
+                layer.cellList[i].connectTo(jcell);
              }
           }
        }

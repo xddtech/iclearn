@@ -1,3 +1,4 @@
+import * as THREE from 'three';
 
 import {ModelCell} from './model-cell';
 import {NeuronsModel} from './neurons-model';
@@ -14,12 +15,18 @@ export class ModelLayer {
     layerHeight: number;
     cellList: ModelCell[] = [];
 
-    constructor() {}
+    layerGroup: THREE.Group;
 
-    create(viewScene: THREE.Scene) {
+
+    constructor() {
+    }
+
+    create(rootGroup: THREE.Group) {
+      this.layerGroup = new THREE.Group();
+      rootGroup.add(this.layerGroup);
        var i: number;
        for (i = 0; i < this.cellList.length; i++) {
-          this.cellList[i].create(viewScene, this.layerType);
+          this.cellList[i].create(this.layerGroup, this.layerType);
        }
     }
 

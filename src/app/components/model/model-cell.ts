@@ -28,7 +28,7 @@ export class ModelCell {
 
     constructor() {}
 
-    create(viewScene: THREE.Scene, layerType: string): void {
+    create(layerGroup: THREE.Group, layerType: string): void {
        this.createMesh(layerType);
 
        this.cellMesh.matrixAutoUpdate = false;
@@ -36,9 +36,9 @@ export class ModelCell {
        this.cellMesh.position.y = this.xyz[1];
        this.cellMesh.position.z = this.xyz[2];
        this.cellMesh.updateMatrix();
-       viewScene.add(this.cellMesh);
+       layerGroup.add(this.cellMesh);
        
-       this.createCellLinks(viewScene);
+       this.createCellLinks(layerGroup);
 
        if (this.label != null) {
         this.createCellLabel();
@@ -63,7 +63,7 @@ export class ModelCell {
        }
     }
 
-    createCellLinks(viewScene: THREE.Scene) {
+    createCellLinks(layerGroup: THREE.Group) {
        if (this.linkToList == null || this.linkToList.length == 0) {
           return;
        }
@@ -71,7 +71,7 @@ export class ModelCell {
           var linkInfo = this.linkToList[i];
           var toCell = ModelMain.currentNeoronsModel.getCellOnLink(linkInfo);
           var line = this.createLinkLine(toCell);
-          viewScene.add(line);
+          layerGroup.add(line);
        }
     }
 
@@ -89,15 +89,15 @@ export class ModelCell {
     createCellLabel(): void {
     }
 
-    connectTo(fromLayer: number, target: ModelCell, toLayer: number) {
+    connectTo(target: ModelCell) {
        var to = new LinkInfo();
-       to.layerIndex = toLayer;
+       to.layerIndex = target.layerIndex;
        to.seqIndex = target.seqIndex;
        to.weight = 0; //?????
        this.linkToList.push(to);
 
        var from = new LinkInfo();
-       from.layerIndex = fromLayer;
+       from.layerIndex = this.layerIndex;
        from.seqIndex = this.seqIndex;
        from.weight = 0; ///???
        target.linkFromList.push(from);
