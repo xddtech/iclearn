@@ -14,6 +14,7 @@ export class ModelLayer {
     layerIndex: number;
     layerHeight: number;
     cellList: ModelCell[] = [];
+    hasBias: boolean = false;
 
     layerGroup: THREE.Group;
 
@@ -28,6 +29,14 @@ export class ModelLayer {
        for (i = 0; i < this.cellList.length; i++) {
           this.cellList[i].create(this.layerGroup, this.layerType);
        }
+    }
+
+    collectLayerInfo() {
+      for (let i in this.cellList) {
+         if (this.cellList[i].cellType == ModelCell.BIAS) {
+            this.hasBias = true;
+         }
+      }
     }
 
     addCell(cell: ModelCell) {

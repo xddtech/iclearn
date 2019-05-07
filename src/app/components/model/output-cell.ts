@@ -2,19 +2,19 @@ import * as THREE from 'three';
 
 import {ModelCell} from './model-cell';
 
-export class InputCell {
+export class OutputCell {
 
     static geometry: any;
     static material: any;
 
     static createMesh(modelCell: ModelCell) {
-       if ( !InputCell.geometry ) {
+       if ( !OutputCell.geometry ) {
           var size = modelCell.inputSize;
           var cellColor = {color: 0x004444, specular: 0xaaaaaa, shininess: 30}
-          InputCell.geometry = new THREE.CylinderGeometry(size/2, size/2, size, 16 )
-          InputCell.material = new THREE.MeshPhongMaterial(cellColor);
+          OutputCell.geometry = new THREE.SphereGeometry(size/2, 32, 32);
+          OutputCell.material = new THREE.MeshPhongMaterial(cellColor);
        }
-       var mesh = new THREE.Mesh( InputCell.geometry, InputCell.material );
+       var mesh = new THREE.Mesh( OutputCell.geometry, OutputCell.material );
        return mesh;
     }
 }

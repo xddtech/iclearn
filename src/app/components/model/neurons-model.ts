@@ -33,8 +33,15 @@ export class NeuronsModel {
        if ( !this.validate() ) {
           return;
        }
+       this.collectModelInfo();
        this.setupLayout();
        this.setupLayerLinks();
+    }
+
+    collectModelInfo() {
+       for (let i in this.layers) {
+          this.layers[i].collectLayerInfo();
+       }
     }
 
     validate(): boolean {

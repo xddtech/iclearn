@@ -2,6 +2,8 @@ import * as THREE from 'three';
 
 import {NetCell} from './net-cell';
 import {InputCell} from './input-cell';
+import {OutputCell} from './output-cell';
+import {BiasCell} from './bias-cell';
 import {LinkInfo} from './link-info';
 import {ModelMain} from '../neurons/model-main';
 
@@ -30,6 +32,10 @@ export class ModelCell {
 
     create(layerGroup: THREE.Group, layerType: string): void {
        this.createMesh(layerType);
+       if ( !this.cellMesh ) {
+          console.error('Failed to create cell mesh at layer ' + this.layerIndex + ', cell seqIndex ' + this.seqIndex);
+          return;
+       }
 
        this.cellMesh.matrixAutoUpdate = false;
        this.cellMesh.position.x = this.xyz[0];
@@ -54,6 +60,14 @@ export class ModelCell {
           }
           case ModelCell.INPUT: {
              this.cellMesh = InputCell.createMesh(this);
+             break;
+          }
+          case ModelCell.BIAS: {
+            this.cellMesh = BiasCell.createMesh(this);
+            break;
+          }
+          case ModelCell.OUTPUT: {
+             this.cellMesh = OutputCell.createMesh(this);
              break;
           }
           default: {
