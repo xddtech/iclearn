@@ -4,7 +4,12 @@
       <span class="glyphicon glyphicon-th-large"></span>
    </a>
    <div id="modelnav-menu" class="collapse">
-      <div><button type="button" class="btn modelnav-item"><span class="glyphicon glyphicon-circle-arrow-up"></span></button></div>
-      <div><button type="button" class="btn modelnav-item"><span class="glyphicon glyphicon-align-justify"></span></button></div>
+      <div><button type="button" class="btn modelnav-item" (click)="resetModelView()">
+          <span class="glyphicon glyphicon-circle-arrow-up"></span></button></div>
+      <div><button type="button" class="btn modelnav-item" data-toggle="collapse" data-target="#layers-panel">
+          <span class="glyphicon glyphicon-align-justify"></span></button></div>
    </div>
+
+   <div id="layers-panel" class="collapse">layers</div>
+   <div id="input-panel" class="collapse">input</div>
 </div>

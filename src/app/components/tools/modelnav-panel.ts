@@ -2,6 +2,7 @@ import {Component, ElementRef, ViewChild, AfterViewInit} from '@angular/core';
 import {ElementDraggable} from '../../utils/element-draggable';
 import {AppService} from '../../services/app-service';
 import {AppStates} from '../../services/app-states';
+import {NeuronsModelView} from '../neurons/neurons-model-view';
 
 declare var $: any;
 
@@ -23,5 +24,9 @@ declare var $: any;
 
        var draggable = new ElementDraggable('modelnav-panel', {});
        draggable.setDraggable();
+    }
+
+    resetModelView() {
+        NeuronsModelView.appCamControl.reset();
     }
  }
