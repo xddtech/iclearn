@@ -12,6 +12,7 @@ import { AppStates } from './services/app-states';
 import ModelSourceComponent from './components/model/model-source';
 import AboutComponent from './components/about/about';
 import AppDebugComponent from './components/debug/debug';
+import ModelNavPanelComponent from './components/tools/modelnav-panel';
 
 @NgModule({
    declarations: [
@@ -20,7 +21,8 @@ import AppDebugComponent from './components/debug/debug';
       NeuronsStageComponent,
       ModelSourceComponent,
       AboutComponent,
-      AppDebugComponent
+      AppDebugComponent,
+      ModelNavPanelComponent
    ],
    imports: [
       BrowserModule,
