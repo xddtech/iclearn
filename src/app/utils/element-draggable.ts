@@ -1,50 +1,50 @@
 export class ElementDraggable {
-   dragElement: HTMLElement;
-   pos1 = 0;
-   pos2 = 0;
-   pos3 = 0;
-   pos4 = 0;
+   static dragElement: HTMLElement;
+   static pos1 = 0;
+   static pos2 = 0;
+   static pos3 = 0;
+   static pos4 = 0;
 
    constructor(private elementId: string, private config: any) {
-      this.dragElement = document.getElementById(elementId);
-      if (this.dragElement) {
-        this.setDraggable();
+    ElementDraggable.dragElement = document.getElementById(elementId);
+      if (ElementDraggable.dragElement) {
+        ElementDraggable.setDraggable();
       } else {
          console.error('not able to find drag element ' + elementId);
       }
    }
 
-   setDraggable() {
-      this.dragElement.onmousedown = this.dragMouseDown;
+   static setDraggable() {
+    ElementDraggable.dragElement.onmousedown = ElementDraggable.dragMouseDown;
    }
 
-   dragMouseDown(e) {
+   static dragMouseDown(e) {
       e = e || window.event;
       e.preventDefault();
       // get the mouse cursor position at startup:
-      this.pos3 = e.clientX;
-      this.pos4 = e.clientY;
-      this.dragElement.onmouseup = this.closeDragElement;
+      ElementDraggable.pos3 = e.clientX;
+      ElementDraggable.pos4 = e.clientY;
+      ElementDraggable.dragElement.onmouseup = ElementDraggable.closeDragElement;
       // call a function whenever the cursor moves:
-      this.dragElement.onmousemove = this.elementDrag;
+      ElementDraggable.dragElement.onmousemove = ElementDraggable.elementDrag;
    }
 
-   elementDrag(e) {
+   static elementDrag(e) {
       e = e || window.event;
       e.preventDefault();
       // calculate the new cursor position:
-      this.pos1 = this.pos3 - e.clientX;
-      this.pos2 = this.pos4 - e.clientY;
-      this.pos3 = e.clientX;
-      this.pos4 = e.clientY;
+      ElementDraggable.pos1 = ElementDraggable.pos3 - e.clientX;
+      ElementDraggable.pos2 = ElementDraggable.pos4 - e.clientY;
+      ElementDraggable.pos3 = e.clientX;
+      ElementDraggable.pos4 = e.clientY;
       // set the element's new position:
-      this.dragElement.style.top = (this.dragElement.offsetTop - this.pos2) + "px";
-      this.dragElement.style.left = (this.dragElement.offsetLeft - this.pos1) + "px";
+      ElementDraggable.dragElement.style.top = (ElementDraggable.dragElement.offsetTop - ElementDraggable.pos2) + "px";
+      ElementDraggable.dragElement.style.left = (ElementDraggable.dragElement.offsetLeft - ElementDraggable.pos1) + "px";
    }
 
-   closeDragElement() {
+   static closeDragElement() {
       // stop moving when mouse button is released:
-      this.dragElement.onmouseup = null;
-      this.dragElement.onmousemove = null;
+      ElementDraggable.dragElement.onmouseup = null;
+      ElementDraggable.dragElement.onmousemove = null;
    }
 }

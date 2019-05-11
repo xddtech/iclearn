@@ -23,7 +23,6 @@ declare var $: any;
        $('#modelnav-panel').css('left', '10px');
 
        var draggable = new ElementDraggable('modelnav-panel', {});
-       draggable.setDraggable();
     }
 
     resetModelView() {
