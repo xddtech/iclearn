@@ -28,6 +28,7 @@ export class ElementDraggable {
    static dragMouseDown(mevent: MouseEvent) {
       //mevent = mevent || window.event;
       mevent.preventDefault();
+      mevent.stopPropagation();
       var elem = ElementDraggable.getTargetElement(mevent);
       if ( !elem ) {
          return;
@@ -37,6 +38,7 @@ export class ElementDraggable {
       mpos2.x = mevent.clientX;
       mpos2.y = mevent.clientY;
       elem.onmouseup = ElementDraggable.closeDragElement;
+      elem.onmouseout = ElementDraggable.closeDragElement;
       elem.onmousemove = ElementDraggable.elementDrag;
       ElementDraggable.isDragging = true;
    }
@@ -47,6 +49,7 @@ export class ElementDraggable {
       }
       //e = e || window.event;
       mevent.preventDefault();
+      mevent.stopPropagation();
       var elem = ElementDraggable.getTargetElement(mevent);
       if ( !elem ) {
          return;
@@ -67,6 +70,7 @@ export class ElementDraggable {
       ElementDraggable.isDragging = false;
       //mevent = mevent || window.event;
       mevent.preventDefault();
+      mevent.stopPropagation();
       var elem = ElementDraggable.getTargetElement(mevent);
       if ( !elem ) {
          return;

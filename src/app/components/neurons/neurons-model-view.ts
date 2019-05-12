@@ -58,8 +58,9 @@ export class NeuronsModelView {
       var lookAt = new THREE.Vector3(0, 0, 0);
       vcamera.lookAt(lookAt);
 
-      var trackball = new THREE.TrackballControls(vcamera, document.getElementById('neurons-stage-div'));
-      //var trackball = new THREE.TrackballControls(vcamera);
+      // right mouse not work when pass element
+      //var trackball = new THREE.TrackballControls(vcamera, document.getElementById('neurons-stage-div'));
+      var trackball = new THREE.TrackballControls(vcamera);
       NeuronsModelView.appCamControl = trackball;
       trackball.rotateSpeed = 1.0;
       trackball.zoomSpeed = 1.0;
