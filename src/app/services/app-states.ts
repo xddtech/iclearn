@@ -43,6 +43,11 @@ export class AppStates {
         }
         json['neuronsModel'] = model;
      }
+     var win = {
+        locationHref: window.location.href,
+        locationOrign: window.location.origin
+     }
+     json['window'] = win;
      return json;
   }
 }
