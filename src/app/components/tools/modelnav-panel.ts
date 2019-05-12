@@ -22,7 +22,7 @@ declare var $: any;
        $('#modelnav-panel').css('top', top + 'px');
        $('#modelnav-panel').css('left', '10px');
 
-       var draggable = new ElementDraggable('modelnav-panel', {});
+       ElementDraggable.register('modelnav-panel', {});
     }
 
     resetModelView() {
