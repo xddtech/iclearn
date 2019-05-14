@@ -1,4 +1,4 @@
-import {Injectable, ElementRef} from '@angular/core';
+import {ElementRef, ComponentFactoryResolver, Injectable, Inject, ReflectiveInjector, ViewContainerRef} from '@angular/core';
 import {Observable} from "rxjs";
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -8,8 +8,24 @@ import {NeuronsModel} from '../components/model/neurons-model';
 
 @Injectable()
 export class AppService {
+  private static factoryResolver: ComponentFactoryResolver;
+  private static rootViewContainer: ViewContainerRef;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, @Inject(ComponentFactoryResolver) factoryResolver) {
+     AppService.factoryResolver = factoryResolver;
+  }
+
+  getComponentFactoryResolver(): ComponentFactoryResolver {
+     return AppService.factoryResolver;
+  }
+
+  setRootViewContainerRef(viewContainerRef: ViewContainerRef) {
+     AppService.rootViewContainer = viewContainerRef
+  }
+
+  getRootViewContainerRef(): ViewContainerRef {
+     return AppService.rootViewContainer;
+  }
 
   getAboutHtml() {
      let reqHeaders = new HttpHeaders({

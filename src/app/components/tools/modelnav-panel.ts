@@ -38,8 +38,8 @@ declare var $: any;
     }
 
     openLayersPanel() {
-       const factory = this.factoryResolver.resolveComponentFactory(LayersNavPanelComponent);
-       const component = factory.create(this.viewContainerRef.parentInjector)
-       this.viewContainerRef.insert(component.hostView)
-    }
+        const factory = this.factoryResolver.resolveComponentFactory(LayersNavPanelComponent);
+        const component = factory.create(this.viewContainerRef.parentInjector)
+        this.viewContainerRef.insert(component.hostView)
+     }
  }

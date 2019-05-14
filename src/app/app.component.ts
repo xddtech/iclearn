@@ -1,5 +1,6 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, Inject, ViewContainerRef } from '@angular/core';
 import * as THREE from 'three';
+import {AppService} from './services/app-service';
 
 @Component({
    selector: 'app-root',
@@ -7,8 +8,7 @@ import * as THREE from 'three';
    styleUrls: ['./app.component.css']
 })
 export class AppComponent implements AfterViewInit {
-   title = 'deeplearn';
-   name = 'Angular';
+   title = 'iclearn';
    scene: any;
    camera: any;
    renderer: any;
@@ -16,6 +16,15 @@ export class AppComponent implements AfterViewInit {
    material: any;
    mesh: any;
 
+   constructor(@Inject(AppService) appService, @Inject(ViewContainerRef) ViewContainerRef) {
+      // not working????
+      appService.setRootViewContainerRef(ViewContainerRef);
+   }
+
+   ngAfterViewInit() {
+   }
+
+   /********** for test purpose
    ngAfterViewInit() {
       //this.init();
       //this.animate();
@@ -44,4 +53,5 @@ export class AppComponent implements AfterViewInit {
      this.mesh.rotation.y += 0.02;
      this.renderer.render(this.scene, this.camera);
   }
+  */
 }
