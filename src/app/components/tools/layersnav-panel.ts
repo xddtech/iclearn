@@ -21,6 +21,6 @@ declare var $: any;
        $('#layersnav-panel').css('top', top + 'px');
        $('#layersnav-panel').css('left', '10px');
 
-       ElementDraggable.register('layersnav-panel', {});
+       //ElementDraggable.register('layersnav-panel', {});
     }
  }

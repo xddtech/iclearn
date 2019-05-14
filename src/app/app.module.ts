@@ -13,6 +13,7 @@ import ModelSourceComponent from './components/model/model-source';
 import AboutComponent from './components/about/about';
 import AppDebugComponent from './components/debug/debug';
 import ModelNavPanelComponent from './components/tools/modelnav-panel';
+import LayersNavPanelComponent from './components/tools/layersnav-panel';
 
 @NgModule({
    declarations: [
@@ -22,7 +23,8 @@ import ModelNavPanelComponent from './components/tools/modelnav-panel';
       ModelSourceComponent,
       AboutComponent,
       AppDebugComponent,
-      ModelNavPanelComponent
+      ModelNavPanelComponent,
+      LayersNavPanelComponent
    ],
    imports: [
       BrowserModule,
@@ -39,6 +41,7 @@ import ModelNavPanelComponent from './components/tools/modelnav-panel';
       AppService,
       AppStates
    ],
-   bootstrap: [AppComponent]
+   bootstrap: [AppComponent],
+   entryComponents: [LayersNavPanelComponent]
 })
 export class AppModule { }
