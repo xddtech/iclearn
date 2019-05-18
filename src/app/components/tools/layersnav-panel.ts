@@ -1,4 +1,5 @@
-import {Component, ElementRef, ViewChild, AfterViewInit} from '@angular/core';
+import {Component, ElementRef, ViewChild, AfterViewInit, HostBinding,
+        EventEmitter, Input, Output} from '@angular/core';
 import {ElementDraggable} from '../../utils/element-draggable';
 import {AppService} from '../../services/app-service';
 import {AppStates} from '../../services/app-states';
@@ -14,13 +15,15 @@ declare var $: any;
  })
  export default class LayersNavPanelComponent implements AfterViewInit {
 
+    @Output() closeLayersPanelEvent = new EventEmitter();
+
     constructor(private appService: AppService, private appStates: AppStates) {}
  
     ngAfterViewInit() {
-       var top =  10 + this.appStates.getNavbarHeight();
-       $('#layersnav-panel').css('top', top + 'px');
-       $('#layersnav-panel').css('left', '10px');
+       ElementDraggable.register('layersnav-panel', {});
+    }
 
-       //ElementDraggable.register('layersnav-panel', {});
+    closeLayersView() {
+       this.closeLayersPanelEvent.emit();
     }
  }

@@ -41,7 +41,6 @@ import LayersNavPanelComponent from './components/tools/layersnav-panel';
       AppService,
       AppStates
    ],
-   bootstrap: [AppComponent],
-   entryComponents: [LayersNavPanelComponent]
+   bootstrap: [AppComponent]
 })
 export class AppModule { }

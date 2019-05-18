@@ -1,6 +1,5 @@
-import { Component, AfterViewInit, Inject, ViewContainerRef } from '@angular/core';
+import {Component, AfterViewInit} from '@angular/core';
 import * as THREE from 'three';
-import {AppService} from './services/app-service';
 
 @Component({
    selector: 'app-root',
@@ -16,10 +15,7 @@ export class AppComponent implements AfterViewInit {
    material: any;
    mesh: any;
 
-   constructor(@Inject(AppService) appService, @Inject(ViewContainerRef) ViewContainerRef) {
-      // not working????
-      appService.setRootViewContainerRef(ViewContainerRef);
-   }
+   constructor() {}
 
    ngAfterViewInit() {
    }

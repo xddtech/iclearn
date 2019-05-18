@@ -2,7 +2,7 @@
     width: 100px !important;
     background: rgba(220, 220, 220, 0.1)!important;
   }
-.layersnav-panel {
+#layersnav-panel {
     position: absolute;
     z-index: 9;
     border: 0px solid lightgrey;

@@ -1,11 +1,8 @@
-import {Component, ElementRef, ViewChild, AfterViewInit, 
-    ComponentFactoryResolver, Injectable, Inject, ReflectiveInjector, ViewContainerRef} from '@angular/core';
+import {Component, ElementRef, ViewChild, AfterViewInit} from '@angular/core';
 import {ElementDraggable} from '../../utils/element-draggable';
 import {AppService} from '../../services/app-service';
 import {AppStates} from '../../services/app-states';
 import {NeuronsModelView} from '../neurons/neurons-model-view';
-
-import LayersNavPanelComponent from './layersnav-panel';
 
 declare var $: any;
 
@@ -16,14 +13,12 @@ declare var $: any;
     providers: [AppService, AppStates]
  })
  export default class ModelNavPanelComponent implements AfterViewInit {
+    @ViewChild('modelNavPanel') modelNavPanelRef: ElementRef;
+    @ViewChild('layersNavPanel') layersNavPanelRef: ElementRef;
 
-    factoryResolver: ComponentFactoryResolver;
-    @ViewChild('layersnavPanel', {read: ViewContainerRef}) viewContainerRef: ViewContainerRef;
+    hideLayersNavPanel = true;
 
-    constructor(private appService: AppService, private appStates: AppStates, 
-        @Inject(ComponentFactoryResolver) factoryResolver) {
-       this.factoryResolver = factoryResolver;
-    }
+    constructor(private appService: AppService, private appStates: AppStates) {}
  
     ngAfterViewInit() {
        var top =  10 + this.appStates.getNavbarHeight();
@@ -34,12 +29,21 @@ declare var $: any;
     }
 
     resetModelView() {
-        NeuronsModelView.appCamControl.reset();
+       NeuronsModelView.appCamControl.reset();
     }
 
-    openLayersPanel() {
-        const factory = this.factoryResolver.resolveComponentFactory(LayersNavPanelComponent);
-        const component = factory.create(this.viewContainerRef.parentInjector)
-        this.viewContainerRef.insert(component.hostView)
-     }
+    toggleLayersPanel() {
+       this.hideLayersNavPanel = !this.hideLayersNavPanel;
+       if (!this.hideLayersNavPanel) {
+          var menuElem = this.modelNavPanelRef.nativeElement;
+          var top = menuElem.offsetTop;
+          var left = menuElem.offsetLeft + menuElem.offsetWidth + 10;
+          $('#layersnav-panel').css('top', top + 'px');
+          $('#layersnav-panel').css('left', left + 'px');
+       }
+    }
+
+    closeLayersPanel() {
+       this.hideLayersNavPanel = true;
+    }
  }

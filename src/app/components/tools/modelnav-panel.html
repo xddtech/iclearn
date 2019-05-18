@@ -1,5 +1,4 @@
-<div class="container">
-<div id="modelnav-panel" class="container text-center">
+<div id="modelnav-panel" #modelNavPanel class="container text-center">
 
    <a class="modelnav-head" data-toggle="collapse" data-target="#modelnav-menu">
       <span class="glyphicon glyphicon-th-large"></span>
@@ -7,12 +6,8 @@
    <div id="modelnav-menu" class="collapse">
       <div><button type="button" class="btn modelnav-item" (click)="resetModelView()">
           <span class="glyphicon glyphicon-circle-arrow-up"></span></button></div>
-      <div><button type="button" class="btn modelnav-item" (click)="openLayersPanel()">
+      <div><button type="button" class="btn modelnav-item" (click)="toggleLayersPanel()">
           <span class="glyphicon glyphicon-align-justify"></span></button></div>
    </div>
-
-   <template #layersnavPanel></template>
 </div>
-
-
-</div>
+<layersnav-panel #layersNavPanel [hidden]="hideLayersNavPanel" (closeLayersPanelEvent)="closeLayersPanel()"></layersnav-panel>

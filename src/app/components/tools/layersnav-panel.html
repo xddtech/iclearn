@@ -1,7 +1,8 @@
 <div id="layersnav-panel">
-    <a data-toggle="collapse" data-target="#layers">
-        <span class="glyphicon glyphicon-remove-sign"></span>
-    </a> Layers
+    <div>
+        <a (click)="closeLayersView()"><span class="glyphicon glyphicon-remove-sign"></span></a>
+        Layers
+    </div>
     <table id="layers"  class="table table-condensed table-bordered table-striped table-hover table-nonfluid">
     <thead>
         <tr>
