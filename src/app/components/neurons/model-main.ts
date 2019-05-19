@@ -9,6 +9,7 @@ import {NeuronsModel} from '../model/neurons-model';
 declare var $: any;
 
 export class ModelMain {
+   static mainRootGroup: THREE.Group;
    rootGroup: THREE.Group;
    neuronsModel: NeuronsModel;
    static currentNeoronsModel: NeuronsModel;
@@ -20,6 +21,7 @@ export class ModelMain {
    init() {
       this.rootGroup = new THREE.Group();
       this.viewScene.add(this.rootGroup);
+      ModelMain.mainRootGroup = this.rootGroup;
 
       var axesHelper = new THREE.AxesHelper(100);
       this.rootGroup.add(axesHelper);
@@ -42,6 +44,24 @@ export class ModelMain {
       //this.rootGroup.add(object);
 
       this.loadCreateModel();
+   }
+
+   static toggleLayerVisibility(index: number, visible: boolean) {
+      var neuronsModel = ModelMain.currentNeoronsModel;
+      if (neuronsModel == null) {
+         console.error('toggleLayerVisibility has null currentNeoronsModel');
+         return;
+      }
+      var layer = neuronsModel.layers[index];
+      if (layer.layerGroup == null) {
+         console.error('toggleLayerVisibility has null layerGroup at ' + index);
+         return;
+      }
+      if (visible) {
+         layer.layerGroup.traverse( function ( object ) { object.visible = true; } );
+      } else {
+         layer.layerGroup.traverse( function ( object ) { object.visible = false; } );
+      }
    }
 
 }

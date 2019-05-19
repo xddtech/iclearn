@@ -42,14 +42,13 @@ declare var $: any;
     }
 
     openLayersPanel() {
-        var menuElem = this.modelNavPanelRef.nativeElement;
-        var top = menuElem.offsetTop;
-        var left = menuElem.offsetLeft + menuElem.offsetWidth + 10;
-        $('#layersnav-panel').css('top', top + 'px');
-        $('#layersnav-panel').css('left', left + 'px');
+       var menuElem = this.modelNavPanelRef.nativeElement;
+       var top = menuElem.offsetTop;
+       var left = menuElem.offsetLeft + menuElem.offsetWidth + 10;
+       $('#layersnav-panel').css('top', top + 'px');
+       $('#layersnav-panel').css('left', left + 'px');
 
-        this.neuronsModel = this.appStates.getCurrentNeuronsModel();
-        this.appService.informNeuronsModelSetup(this.neuronsModel);
+       this.neuronsModel = this.appStates.getCurrentNeuronsModel();
     }
 
     closeLayersPanel() {

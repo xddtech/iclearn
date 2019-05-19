@@ -6,6 +6,7 @@ import {AppStates} from '../../services/app-states';
 import {NeuronsModelView} from '../neurons/neurons-model-view';
 import {NeuronsModel} from '../model/neurons-model';
 import {ModelLayer} from '../model/model-layer';
+import {ModelMain} from '../neurons/model-main';
 
 declare var $: any;
 
@@ -19,24 +20,28 @@ declare var $: any;
 
     @Output() closeLayersPanelEvent = new EventEmitter();
     @Input() neuronsModel: NeuronsModel;
+    layersViewMap = {};
 
     constructor(private appService: AppService, private appStates: AppStates) {
-       //appService.neuronsModelObservable$.subscribe(model => {
-          // not working????
-          //this.neuronsModel = model;
-       //});
-    }
-
-    getNeuronsModel() {
-       //this.neuronsModel = this.appStates.getCurrentNeuronsModel();
     }
  
     ngAfterViewInit() {
        ElementDraggable.register('layersnav-panel', {});
-       //this.getNeuronsModel();
     }
 
     closeLayersView() {
        this.closeLayersPanelEvent.emit();
+    }
+
+    toggleLayerVisible(index: number) {
+       var visible = false;
+       if (this.layersViewMap[index] || this.layersViewMap[index] == false) {
+          visible = !this.layersViewMap[index];
+          this.layersViewMap[index] = visible;
+       } else {
+          this.layersViewMap[index] = false;
+          visible = false;
+       }
+       ModelMain.toggleLayerVisibility(index, visible);
     }
  }

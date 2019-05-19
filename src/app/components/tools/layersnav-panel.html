@@ -2,35 +2,20 @@
     <div>
         <a (click)="closeLayersView()"><span class="glyphicon glyphicon-remove-sign"></span></a>
     </div>
-    <table id="layers"  class="table table-condensed table-bordered table-hover table-nonfluid">
+    <table id="layers" *ngIf="neuronsModel" class="table table-condensed table-bordered table-hover table-nonfluid">
     <thead>
         <tr>
-           <th>Layers</th>
            <th></th>
+           <th>Layers</th>
            <th></th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td>john@example.com</td>
-        </tr>
-        <tr>
-            <td>Mary</td>
-            <td>Moe</td>
-            <td>mary@example.com</td>
-        </tr>
-        <tr>
-            <td>July</td>
-            <td>Dooley</td>
-            <td>july@example.com</td>
-        </tr>
-        <div *ngIf="neuronsModel">
-        <tr *ngFor="let layer of neuronsModel.layers">
+        <tr *ngFor="let layer of neuronsModel.layers; let i = index">
             <td>{{layer.layerIndex}}</td>
+            <td>{{layer.layerType}}</td>
+            <td><input type="checkbox" checked="true" (change)="toggleLayerVisible(i)" /></td>
         </tr>
-        </div>
     </tbody>
     </table>
 </div>
