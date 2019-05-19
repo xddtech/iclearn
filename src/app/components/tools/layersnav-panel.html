@@ -1,14 +1,13 @@
 <div id="layersnav-panel">
     <div>
         <a (click)="closeLayersView()"><span class="glyphicon glyphicon-remove-sign"></span></a>
-        Layers
     </div>
-    <table id="layers"  class="table table-condensed table-bordered table-striped table-hover table-nonfluid">
+    <table id="layers"  class="table table-condensed table-bordered table-hover table-nonfluid">
     <thead>
         <tr>
-           <th>Firstname</th>
-           <th>Lastname</th>
-           <th>Email</th>
+           <th>Layers</th>
+           <th></th>
+           <th></th>
         </tr>
     </thead>
     <tbody>
@@ -27,6 +26,11 @@
             <td>Dooley</td>
             <td>july@example.com</td>
         </tr>
+        <div *ngIf="neuronsModel">
+        <tr *ngFor="let layer of neuronsModel.layers">
+            <td>{{layer.layerIndex}}</td>
+        </tr>
+        </div>
     </tbody>
     </table>
 </div>

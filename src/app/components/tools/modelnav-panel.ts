@@ -2,6 +2,7 @@ import {Component, ElementRef, ViewChild, AfterViewInit} from '@angular/core';
 import {ElementDraggable} from '../../utils/element-draggable';
 import {AppService} from '../../services/app-service';
 import {AppStates} from '../../services/app-states';
+import {NeuronsModel} from '../model/neurons-model';
 import {NeuronsModelView} from '../neurons/neurons-model-view';
 
 declare var $: any;
@@ -16,6 +17,7 @@ declare var $: any;
     @ViewChild('modelNavPanel') modelNavPanelRef: ElementRef;
     @ViewChild('layersNavPanel') layersNavPanelRef: ElementRef;
 
+    neuronsModel: NeuronsModel;
     hideLayersNavPanel = true;
 
     constructor(private appService: AppService, private appStates: AppStates) {}
@@ -35,12 +37,19 @@ declare var $: any;
     toggleLayersPanel() {
        this.hideLayersNavPanel = !this.hideLayersNavPanel;
        if (!this.hideLayersNavPanel) {
-          var menuElem = this.modelNavPanelRef.nativeElement;
-          var top = menuElem.offsetTop;
-          var left = menuElem.offsetLeft + menuElem.offsetWidth + 10;
-          $('#layersnav-panel').css('top', top + 'px');
-          $('#layersnav-panel').css('left', left + 'px');
+           this.openLayersPanel();
        }
+    }
+
+    openLayersPanel() {
+        var menuElem = this.modelNavPanelRef.nativeElement;
+        var top = menuElem.offsetTop;
+        var left = menuElem.offsetLeft + menuElem.offsetWidth + 10;
+        $('#layersnav-panel').css('top', top + 'px');
+        $('#layersnav-panel').css('left', left + 'px');
+
+        this.neuronsModel = this.appStates.getCurrentNeuronsModel();
+        this.appService.informNeuronsModelSetup(this.neuronsModel);
     }
 
     closeLayersPanel() {

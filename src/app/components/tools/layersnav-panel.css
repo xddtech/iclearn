@@ -1,15 +1,14 @@
 .table-nonfluid {
     width: 100px !important;
-    background: rgba(220, 220, 220, 0.1)!important;
+    background: rgba(60, 209, 184, 0.3)!important;
+    border: 1px solid lightgrey;
+    border-radius: 4px;
+    top: 70px;
+    left: 550px;
+    width: 200px;
+    padding: 2px;
   }
 #layersnav-panel {
     position: absolute;
     z-index: 9;
-    border: 0px solid lightgrey;
-    border-radius: 4px;
-    top: 70px;
-    left: 550px;
-    width: 300px;
-    padding: 2px;
-    padding-right: 2px;
  }

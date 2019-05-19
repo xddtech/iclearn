@@ -1,5 +1,5 @@
 import {ElementRef, Injectable} from '@angular/core';
-import {Observable} from "rxjs";
+import {Observable, Subject} from "rxjs";
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -9,7 +9,14 @@ import {NeuronsModel} from '../components/model/neurons-model';
 @Injectable()
 export class AppService {
 
+  neuronsModelSubject = new Subject<NeuronsModel>();
+  neuronsModelObservable$ = this.neuronsModelSubject.asObservable();
+
   constructor(private http: HttpClient) {}
+
+  informNeuronsModelSetup(model: NeuronsModel) {
+     this.neuronsModelSubject.next(model);
+  }
 
   getAboutHtml() {
      let reqHeaders = new HttpHeaders({

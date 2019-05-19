@@ -8,6 +8,8 @@
           <span class="glyphicon glyphicon-circle-arrow-up"></span></button></div>
       <div><button type="button" class="btn modelnav-item" (click)="toggleLayersPanel()">
           <span class="glyphicon glyphicon-align-justify"></span></button></div>
+      <div><button type="button" (click)="layersNavPanel.getNeuronsModel()">Load</button></div>
    </div>
 </div>
-<layersnav-panel #layersNavPanel [hidden]="hideLayersNavPanel" (closeLayersPanelEvent)="closeLayersPanel()"></layersnav-panel>
+<layersnav-panel #layersNavPanel [hidden]="hideLayersNavPanel" (closeLayersPanelEvent)="closeLayersPanel()"
+     [neuronsModel]="neuronsModel"></layersnav-panel>
