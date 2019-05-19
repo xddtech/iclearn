@@ -1,7 +1,7 @@
 import {Observable} from "rxjs";
 import * as THREE from 'three';
 
-
+import {NeuronsModelView} from '../neurons/neurons-model-view';
 import {AppService} from '../../services/app-service';
 import {AppStates} from '../../services/app-states';
 import {NeuronsModel} from '../model/neurons-model';
@@ -62,6 +62,7 @@ export class ModelMain {
       } else {
          layer.layerGroup.traverse( function ( object ) { object.visible = false; } );
       }
+      NeuronsModelView.animate();
    }
 
 }
