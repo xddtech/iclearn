@@ -4,6 +4,7 @@ import {AppService} from '../../services/app-service';
 import {AppStates} from '../../services/app-states';
 import {NeuronsModel} from '../model/neurons-model';
 import {NeuronsModelView} from '../neurons/neurons-model-view';
+import DataInputPanelComponent from './datainput-panel';
 
 declare var $: any;
 
@@ -16,9 +17,11 @@ declare var $: any;
  export default class ModelNavPanelComponent implements AfterViewInit {
     @ViewChild('modelNavPanel') modelNavPanelRef: ElementRef;
     @ViewChild('layersNavPanel') layersNavPanelRef: ElementRef;
+    @ViewChild('dataInputPanel') dataInputPanelRef: ElementRef;
 
     neuronsModel: NeuronsModel;
     hideLayersNavPanel = true;
+    hideDataInputPanel = true;
 
     constructor(private appService: AppService, private appStates: AppStates) {}
  
@@ -35,10 +38,16 @@ declare var $: any;
     }
 
     toggleLayersPanel() {
+       if (this.hideLayersNavPanel) {
+          this.openLayersPanel();
+          this.hideLayersNavPanel = false;
+       }
+       /* disable toggle
        this.hideLayersNavPanel = !this.hideLayersNavPanel;
        if (!this.hideLayersNavPanel) {
            this.openLayersPanel();
        }
+       */
     }
 
     openLayersPanel() {
@@ -51,7 +60,29 @@ declare var $: any;
        this.neuronsModel = this.appStates.getCurrentNeuronsModel();
     }
 
+    openDataInputPanel() {
+       this.hideDataInputPanel = false;
+       this.neuronsModel = this.appStates.getCurrentNeuronsModel();
+
+       setTimeout(() => {
+          this.positionDataInputPanel();
+       }, 600);
+    }
+
+    positionDataInputPanel() {
+       var inputPanel = this.dataInputPanelRef as any;
+       var nativeElement = inputPanel.rootRef.nativeElement;
+       var top = window.innerHeight - nativeElement.offsetHeight - 10;
+       var left = window.innerWidth/2 - nativeElement.offsetWidth/2;
+       $('#datainput-panel').css('top', top + 'px');
+       $('#datainput-panel').css('left', left + 'px');
+    }
+
     closeLayersPanel() {
        this.hideLayersNavPanel = true;
+    }
+
+    closeDataInputPanel() {
+       this.hideDataInputPanel = true;
     }
  }

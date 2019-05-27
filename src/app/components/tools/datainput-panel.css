@@ -1,0 +1,24 @@
+#datainput-panel {
+    position: absolute;
+    z-index: 9;
+}
+
+#input-table {
+    width: 100% !important;
+    background: rgba(220, 220, 220, 0.1)!important;
+}
+
+input {
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+    width: 100px;
+    background: rgba(0, 220, 220, 0)!important;
+}
+
+td {
+    width: 10px;
+    margin: 0px;
+    padding: 0px;
+    background: rgba(0, 220, 220, 0.1)!important;
+  }

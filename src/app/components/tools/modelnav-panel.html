@@ -8,7 +8,11 @@
           <span class="glyphicon glyphicon-circle-arrow-up"></span></button></div>
       <div><button type="button" class="btn modelnav-item" (click)="toggleLayersPanel()">
           <span class="glyphicon glyphicon-align-justify"></span></button></div>
+      <div><button type="button" class="btn modelnav-item" (click)="openDataInputPanel()">
+            <span class="glyphicon glyphicon-signal"></span></button></div>
    </div>
 </div>
 <layersnav-panel #layersNavPanel [hidden]="hideLayersNavPanel" (closeLayersPanelEvent)="closeLayersPanel()"
      [neuronsModel]="neuronsModel"></layersnav-panel>
+<datainput-panel #dataInputPanel [hidden]="hideDataInputPanel" (closeDataInputPanelEvent)="closeDataInputPanel()"
+     [neuronsModel]="neuronsModel"></datainput-panel>

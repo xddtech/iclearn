@@ -14,6 +14,7 @@ import AboutComponent from './components/about/about';
 import AppDebugComponent from './components/debug/debug';
 import ModelNavPanelComponent from './components/tools/modelnav-panel';
 import LayersNavPanelComponent from './components/tools/layersnav-panel';
+import DataInputPanelComponent from './components/tools/datainput-panel';
 
 @NgModule({
    declarations: [
@@ -24,7 +25,8 @@ import LayersNavPanelComponent from './components/tools/layersnav-panel';
       AboutComponent,
       AppDebugComponent,
       ModelNavPanelComponent,
-      LayersNavPanelComponent
+      LayersNavPanelComponent,
+      DataInputPanelComponent
    ],
    imports: [
       BrowserModule,

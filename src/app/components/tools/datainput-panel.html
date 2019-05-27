@@ -1,0 +1,35 @@
+<div id="datainput-panel" #dataInputPanelRoot class="conatiner">
+    <div class="row">
+        <div class="col-sm-4">
+            <a (click)="closeDataInputView()"><span class="glyphicon glyphicon-remove-sign"></span></a>
+        </div>
+        <div class="col-sm-4">
+            Go<span class="glyphicon glyphicon-arrow-up"></span>
+        </div>
+        <div class="col-sm-4">
+            <select>
+                <option value="predict">Predict</option>
+                <option value="learn">Learn</option>
+                <option value="test">Test</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <table id="input-table"  class="table table-condensed table-bordered">
+            <thead class="thead-dark">
+            <tr>
+               <th>Width</th>
+               <th>Height</th>
+               <th>Expected</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+               <td><input type="number"  /></td>
+               <td><input type="number"  /></td>
+               <td><input type="boolean"  /></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
