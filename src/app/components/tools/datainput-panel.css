@@ -3,9 +3,48 @@
     z-index: 9;
 }
 
+.input-action-menu {
+    background: rgba(206, 109, 109, 0.1) !important;
+    border-radius: 100% 100% 0 0;
+    padding-top: 5px;
+}
+
+.action-close {
+    text-align: left;
+}
+
+.action-go {
+    text-align: center;
+}
+
+.go-button {
+    padding: 3px;
+    margin: 1px 1px 4px 1px;
+    border-radius: 100% 100% 100% 100%;
+    background: rgba(0, 255, 0, 0.4) !important;
+    box-shadow: 3px 5px 4px #888888;
+}
+
+.action-type {
+    text-align: right;
+}
+
+.select-button {
+    background: rgba(0, 255, 0, 0.1) !important;
+    border: 0px;
+    border-radius: 10% 10% 10% 10%;
+}
+
 #input-table {
     width: 100% !important;
     background: rgba(220, 220, 220, 0.1)!important;
+}
+
+.input-table-x {
+    border-left: 1px grey;
+    border-right: 1px grey;
+    border-bottom: 1px grey;
+    border: 5px!important;
 }
 
 input {

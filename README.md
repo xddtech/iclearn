@@ -67,3 +67,18 @@ export class TrackballControls {
 
 c:\xdd-learn\iclearn\src\app\controls\TrackballControls.js
 import * as THREE from 'three';
+
+add addListeners() for control
+	this.addListeners = function () {
+	    this.domElement.addEventListener( 'contextmenu', contextmenu, false );
+	    this.domElement.addEventListener( 'mousedown', mousedown, false );
+	    this.domElement.addEventListener( 'wheel', mousewheel, false );
+
+	    this.domElement.addEventListener( 'touchstart', touchstart, false );
+	    this.domElement.addEventListener( 'touchend', touchend, false );
+	    this.domElement.addEventListener( 'touchmove', touchmove, false );
+
+	    window.addEventListener( 'keydown', keydown, false );
+	    window.addEventListener( 'keyup', keyup, false );
+	}
+	this.addListeners();

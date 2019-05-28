@@ -64,6 +64,7 @@ declare var $: any;
        this.hideDataInputPanel = false;
        this.neuronsModel = this.appStates.getCurrentNeuronsModel();
 
+       //NeuronsModelView.appCamControl.dispose();
        setTimeout(() => {
           this.positionDataInputPanel();
        }, 600);
@@ -84,5 +85,6 @@ declare var $: any;
 
     closeDataInputPanel() {
        this.hideDataInputPanel = true;
+       //NeuronsModelView.appCamControl.addListeners();
     }
  }

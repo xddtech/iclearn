@@ -21,6 +21,9 @@ export default class DataInputPanelComponent implements AfterViewInit, AfterCont
    @Output() closeDataInputPanelEvent = new EventEmitter();
    @Input() neuronsModel: NeuronsModel;
 
+   inputTypesOpt = ['Predict', 'Learn', 'Test'];
+   inputType = 'Predict';
+
    constructor(private appService: AppService, private appStates: AppStates) {}
 
    ngAfterViewInit() {
