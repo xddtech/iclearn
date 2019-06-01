@@ -4,7 +4,7 @@
 }
 
 .input-action-menu {
-    background: rgba(206, 109, 109, 0.1) !important;
+    background: rgba(0, 0, 0, 0.2) !important;
     border-radius: 100% 100% 0 0;
     padding-top: 5px;
 }
@@ -44,10 +44,15 @@
     border-left: 1px grey;
     border-right: 1px grey;
     border-bottom: 1px grey;
-    border: 5px!important;
+    border: 1;
 }
 
-input {
+#input-table th {
+    text-align: center;
+    font-size: 0.8em;
+}
+
+#input-table input {
     padding: 0px;
     margin: 0px;
     border: 0px;
@@ -55,7 +60,7 @@ input {
     background: rgba(0, 220, 220, 0)!important;
 }
 
-td {
+#input-table td {
     width: 10px;
     margin: 0px;
     padding: 0px;
