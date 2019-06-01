@@ -27,7 +27,7 @@ export default class DataInputPanelComponent implements AfterViewInit, AfterCont
    constructor(private appService: AppService, private appStates: AppStates) {}
 
    ngAfterViewInit() {
-      //ElementDraggable.register('datainput-panel', {});
+      //ElementDraggable.register('input-action-header', 'datainput-panel', {});
       /*
       var inputPanel = this.rootRef as any;
       var top = window.innerHeight - inputPanel.nativeElement.offsetHeight - 10;
@@ -38,6 +38,7 @@ export default class DataInputPanelComponent implements AfterViewInit, AfterCont
    }
 
    ngAfterContentChecked() {
+      //ElementDraggable.register('input-action-header', 'datainput-panel', {});
       /*
       var inputPanel = this.rootRef as any;
       var top = window.innerHeight - inputPanel.nativeElement.offsetHeight - 10;

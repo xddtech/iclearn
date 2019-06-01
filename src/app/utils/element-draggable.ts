@@ -3,15 +3,22 @@ export class ElementDraggable {
    static mpos1 = {x: 0, y: 0};
    static mpos2 = {x: 0, y: 0};
    static isDragging = false;
+   static targetElem: any;
 
-   static register(elementId: string, config: any) {
+   static register(elementId: string, targetElementId: string, config: any) {
       var elem = document.getElementById(elementId);
-      if (elem) {
-         elem.onmousedown = ElementDraggable.dragMouseDown
-         ElementDraggable.dragElements[elementId] = elem;
-      } else {
-         console.error('not able to find drag element ' + elementId);
+      var targetElem = document.getElementById(targetElementId)
+      if (!elem) {
+         console.error('not able to find drag elements ' + elementId);
+         return;
+      } 
+      if (!targetElem) {
+         console.error('not able to find drag target elements ' + targetElementId);
+         return;
       }
+
+      elem.onmousedown = ElementDraggable.dragMouseDown
+      ElementDraggable.dragElements[elementId] = targetElem;
    }
 
    static getTargetElement(mevent: MouseEvent): HTMLElement {
@@ -33,6 +40,7 @@ export class ElementDraggable {
       if ( !elem ) {
          return;
       }
+      ElementDraggable.targetElem = elem;
       
       var mpos2 = ElementDraggable.mpos2;
       mpos2.x = mevent.clientX;
@@ -44,16 +52,17 @@ export class ElementDraggable {
    }
 
    static elementDrag(mevent: MouseEvent) {
-      if (!ElementDraggable.isDragging) {
+      if (!ElementDraggable.isDragging || !ElementDraggable.targetElem) {
          return;
       }
       //e = e || window.event;
       mevent.preventDefault();
       mevent.stopPropagation();
-      var elem = ElementDraggable.getTargetElement(mevent);
-      if ( !elem ) {
-         return;
-      }
+      //var elem = ElementDraggable.getTargetElement(mevent);
+      //if ( !elem ) {
+      //   return;
+      //}
+      var elem = ElementDraggable.targetElem;
       // calculate the new cursor position:
       var mpos1 = ElementDraggable.mpos1;
       var mpos2 = ElementDraggable.mpos2;
@@ -71,12 +80,14 @@ export class ElementDraggable {
       //mevent = mevent || window.event;
       mevent.preventDefault();
       mevent.stopPropagation();
-      var elem = ElementDraggable.getTargetElement(mevent);
+      //var elem = ElementDraggable.getTargetElement(mevent);
+      var elem = ElementDraggable.targetElem;
       if ( !elem ) {
          return;
       }
       // stop moving when mouse button is released:
       elem.onmouseup = null;
       elem.onmousemove = null;
+      ElementDraggable.targetElem = null;
    }
 }

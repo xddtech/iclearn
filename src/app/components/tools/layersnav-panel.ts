@@ -26,7 +26,7 @@ declare var $: any;
     }
  
     ngAfterViewInit() {
-       ElementDraggable.register('layersnav-panel', {});
+       ElementDraggable.register('layersnav-panel', 'layersnav-panel', {});
     }
 
     closeLayersView() {

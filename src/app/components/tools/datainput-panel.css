@@ -16,23 +16,24 @@
 .action-go {
     text-align: center;
 }
-
-.go-button {
-    padding: 3px;
-    margin: 1px 1px 4px 1px;
+.action-go a {
+    color: black;
+    padding: 1px;
+    margin: 0px 0px 0px 0px;
+    vertical-align: top;
+    border: none;
     border-radius: 100% 100% 100% 100%;
     background: rgba(0, 255, 0, 0.4) !important;
-    box-shadow: 3px 5px 4px #888888;
+    box-shadow: 2px 2px 2px black;
 }
 
 .action-type {
     text-align: right;
 }
-
-.select-button {
-    background: rgba(0, 255, 0, 0.1) !important;
+.action-type select {
+    background: rgba(0, 255, 0, 0.4) !important;
     border: 0px;
-    border-radius: 10% 10% 10% 10%;
+    border-radius: 20% 20% 20% 20%;
 }
 
 #input-table {

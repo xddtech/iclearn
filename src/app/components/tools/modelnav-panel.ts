@@ -22,6 +22,7 @@ declare var $: any;
     neuronsModel: NeuronsModel;
     hideLayersNavPanel = true;
     hideDataInputPanel = true;
+    inputPanelDragRegistered = false;
 
     constructor(private appService: AppService, private appStates: AppStates) {}
  
@@ -30,7 +31,7 @@ declare var $: any;
        $('#modelnav-panel').css('top', top + 'px');
        $('#modelnav-panel').css('left', '10px');
 
-       ElementDraggable.register('modelnav-panel', {});
+       ElementDraggable.register('modelnav-panel', 'modelnav-panel', {});
     }
 
     resetModelView() {
@@ -73,10 +74,15 @@ declare var $: any;
     positionDataInputPanel() {
        var inputPanel = this.dataInputPanelRef as any;
        var nativeElement = inputPanel.rootRef.nativeElement;
-       var top = window.innerHeight - nativeElement.offsetHeight - 10;
+       var top = window.innerHeight - nativeElement.offsetHeight - 20;
        var left = window.innerWidth/2 - nativeElement.offsetWidth/2;
        $('#datainput-panel').css('top', top + 'px');
        $('#datainput-panel').css('left', left + 'px');
+
+       if (!this.inputPanelDragRegistered) {
+          ElementDraggable.register('input-action-header', 'datainput-panel', {});
+          this.inputPanelDragRegistered = true;
+       }
     }
 
     closeLayersPanel() {
