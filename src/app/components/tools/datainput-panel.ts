@@ -23,29 +23,30 @@ export default class DataInputPanelComponent implements AfterViewInit, AfterCont
 
    inputTypesOpt = ['Predict', 'Learn', 'Test'];
    inputType = 'Predict';
+   expectedDisabled = true;
 
    constructor(private appService: AppService, private appStates: AppStates) {}
 
    ngAfterViewInit() {
-      //ElementDraggable.register('input-action-header', 'datainput-panel', {});
-      /*
-      var inputPanel = this.rootRef as any;
-      var top = window.innerHeight - inputPanel.nativeElement.offsetHeight - 10;
-      var left = window.innerWidth/2 - inputPanel.nativeElement.offsetWidth;
-      $('#datainput-panel').css('top', top + 'px');
-      $('#datainput-panel').css('left', left + 'px');
-      */
    }
 
    ngAfterContentChecked() {
-      //ElementDraggable.register('input-action-header', 'datainput-panel', {});
-      /*
-      var inputPanel = this.rootRef as any;
-      var top = window.innerHeight - inputPanel.nativeElement.offsetHeight - 10;
-      var left = window.innerWidth/2 - inputPanel.nativeElement.offsetWidth;
-      $('#datainput-panel').css('top', top + 'px');
-      $('#datainput-panel').css('left', left + 'px');
-      */
+   }
+
+   onInputTypeChange(newValue) {
+      this.inputType = newValue;
+      var bg = 'rgba(0, 220, 220, 0)!important';
+      if (this.inputType == 'Predict') {
+         this.expectedDisabled = true;
+      } else {
+         this.expectedDisabled = false;
+         bg = 'rgba(0, 100, 100, 0)!important';
+      }
+      // not work??
+      $('#expected-input').css('background-color', 'red');
+   }
+
+   processInput() {
    }
 
    closeDataInputView() {

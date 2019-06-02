@@ -1,3 +1,5 @@
+declare var $: any;
+
 export class ElementDraggable {
    static dragElements = {};
    static mpos1 = {x: 0, y: 0};
@@ -16,6 +18,14 @@ export class ElementDraggable {
          console.error('not able to find drag target elements ' + targetElementId);
          return;
       }
+
+      /*
+      $('#elementId').hover(function() {
+         $('#elementId').css('cursor','pointer');
+      }, function() {
+         $('#elementId').css('cursor','auto');
+      });
+      */
 
       elem.onmousedown = ElementDraggable.dragMouseDown
       ElementDraggable.dragElements[elementId] = targetElem;

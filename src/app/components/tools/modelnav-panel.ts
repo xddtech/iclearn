@@ -65,10 +65,13 @@ declare var $: any;
        this.hideDataInputPanel = false;
        this.neuronsModel = this.appStates.getCurrentNeuronsModel();
 
-       //NeuronsModelView.appCamControl.dispose();
-       setTimeout(() => {
-          this.positionDataInputPanel();
-       }, 600);
+       //NeuronsModelView.appCamControl.dispose(); for input avail?
+       if (!this.inputPanelDragRegistered) {
+          // do for the first time
+          setTimeout(() => {
+             this.positionDataInputPanel();
+          }, 600);
+       }
     }
 
     positionDataInputPanel() {

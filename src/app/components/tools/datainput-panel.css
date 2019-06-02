@@ -7,6 +7,7 @@
     background: rgba(0, 0, 0, 0.2) !important;
     border-radius: 100% 100% 0 0;
     padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .action-close {
@@ -18,7 +19,7 @@
 }
 .action-go a {
     color: black;
-    padding: 1px;
+    padding: 2px;
     margin: 0px 0px 0px 0px;
     vertical-align: top;
     border: none;
@@ -34,6 +35,7 @@
     background: rgba(0, 255, 0, 0.4) !important;
     border: 0px;
     border-radius: 20% 20% 20% 20%;
+    box-shadow: 2px 2px 2px black;
 }
 
 #input-table {

@@ -1,13 +1,13 @@
 <div id="datainput-panel" #dataInputPanelRoot class="conatiner">
-    <div id="input-action-header" class="row">
-        <div class="col-sm-4 input-action-menu action-close">
+    <div class="row">
+        <div id="input-action-header" class="col-sm-4 input-action-menu action-close">
             <a (click)="closeDataInputView()"><span class="glyphicon glyphicon-remove-sign"></span></a>
         </div>
         <div class="col-sm-4 input-action-menu action-go">
-            <a (click)="closeDataInputView()">Go</a>
+            <a (click)="processInput()">Go</a>
         </div>
         <div class="col-sm-4 input-action-menu action-type">
-            <select class="select-button">
+            <select class="select-button" (change)="onInputTypeChange($event.target.value)">
                 <option *ngFor="let opt of inputTypesOpt" [value]="opt">{{opt}}</option>
             </select>
         </div>
@@ -25,7 +25,7 @@
             <tr>
                <td><input type="number" /></td>
                <td><input type="number" /></td>
-               <td><input type="boolean" /></td>
+               <td><input id="expected-input" type="boolean" [disabled]="expectedDisabled" /></td>
             </tr>
             </tbody>
         </table>
