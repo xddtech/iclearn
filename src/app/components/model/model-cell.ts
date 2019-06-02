@@ -103,6 +103,10 @@ export class ModelCell {
     createCellLabel(): void {
     }
 
+    getDescription(): any {
+       return this.label ? this.label : this.seqIndex;
+    }
+
     connectTo(target: ModelCell) {
        var to = new LinkInfo();
        to.layerIndex = target.layerIndex;

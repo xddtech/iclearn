@@ -12,20 +12,22 @@
             </select>
         </div>
     </div>
-    <div class="row">
+    <div *ngIf="neuronsModel" class="row" >
         <table id="input-table" border="1" class="input-table-x">
             <thead>
             <tr>
-               <th>Width</th>
-               <th>Height</th>
-               <th>Expected</th>
+               <th *ngFor="let cell of neuronsModel.layers[0].cellList; let i = index">
+                   {{cell.getDescription()}}
+               </th>
+               <th>expected</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-               <td><input type="number" /></td>
-               <td><input type="number" /></td>
-               <td><input id="expected-input" type="boolean" [disabled]="expectedDisabled" /></td>
+               <td *ngFor="let cell of neuronsModel.layers[0].cellList; let i = index">
+                   <input id="input-value-{{cell.seqIndex}}" type="number" />
+               </td>
+               <td><input id="expected-input" [disabled]="expectedDisabled" /></td>
             </tr>
             </tbody>
         </table>

@@ -24,10 +24,12 @@ export default class DataInputPanelComponent implements AfterViewInit, AfterCont
    inputTypesOpt = ['Predict', 'Learn', 'Test'];
    inputType = 'Predict';
    expectedDisabled = true;
+   inputLayer: ModelLayer;
 
    constructor(private appService: AppService, private appStates: AppStates) {}
 
    ngAfterViewInit() {
+      //this.inputLayer = this.neuronsModel.layers[0];
    }
 
    ngAfterContentChecked() {
