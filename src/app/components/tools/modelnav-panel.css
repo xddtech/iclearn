@@ -1,6 +1,7 @@
 .modelnav-head {
     background: rgba(220, 220, 220, 0.1)!important;
     padding-left: 4px;
+    padding-right: 4px;
     transform: scaleY(0.6);
  }
 .modelnav-head:hover {

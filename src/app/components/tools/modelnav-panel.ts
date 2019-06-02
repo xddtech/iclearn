@@ -31,7 +31,7 @@ declare var $: any;
        $('#modelnav-panel').css('top', top + 'px');
        $('#modelnav-panel').css('left', '10px');
 
-       ElementDraggable.register('modelnav-panel', 'modelnav-panel', {});
+       ElementDraggable.register('modelnav-head', 'modelnav-panel', {});
     }
 
     resetModelView() {

@@ -25,7 +25,7 @@
             <tbody>
             <tr>
                <td *ngFor="let cell of neuronsModel.layers[0].cellList; let i = index">
-                   <input id="input-value-{{cell.seqIndex}}" type="number" />
+                   <input id="input-value-{{cell.seqIndex}}" autocomplete="off" />
                </td>
                <td><input id="expected-input" [disabled]="expectedDisabled" /></td>
             </tr>

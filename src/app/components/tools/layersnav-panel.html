@@ -1,5 +1,5 @@
 <div id="layersnav-panel">
-    <div>
+    <div id="layersnav-head">
         <a (click)="closeLayersView()"><span class="glyphicon glyphicon-remove-sign"></span></a>
     </div>
     <table id="layers" *ngIf="neuronsModel" class="table table-condensed table-bordered table-hover table-nonfluid">
@@ -13,7 +13,7 @@
     <tbody>
         <tr *ngFor="let layer of neuronsModel.layers; let i = index">
             <td>{{layer.layerIndex}}</td>
-            <td>{{layer.layerType}}</td>
+            <td>{{layer.getDescription()}}</td>
             <td><input type="checkbox" checked="true" (change)="toggleLayerVisible(i)" /></td>
         </tr>
     </tbody>

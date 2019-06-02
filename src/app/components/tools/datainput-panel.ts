@@ -42,10 +42,10 @@ export default class DataInputPanelComponent implements AfterViewInit, AfterCont
          this.expectedDisabled = true;
       } else {
          this.expectedDisabled = false;
-         bg = 'rgba(0, 100, 100, 0)!important';
+         bg = 'rgba(0, 0, 0, 0)!important';
       }
       // not work??
-      $('#expected-input').css('background-color', 'red');
+      $('#expected-input').css('background-color', 'red !important');
    }
 
    processInput() {

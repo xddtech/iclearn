@@ -92,6 +92,10 @@ export class ModelLayer {
 
     }
 
+    getDescription(): string {
+       return this.layerType + ": " + this.cellList.length;
+    }
+
     static clone(layerData: any): ModelLayer {
        if ( layerData == null) {
          return null;

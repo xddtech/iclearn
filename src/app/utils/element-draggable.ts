@@ -19,13 +19,14 @@ export class ElementDraggable {
          return;
       }
 
-      /*
-      $('#elementId').hover(function() {
-         $('#elementId').css('cursor','pointer');
+      var idstr = '#' + elementId;
+      
+      $(idstr).hover(function() {
+         $(idstr).css('cursor','move');
       }, function() {
-         $('#elementId').css('cursor','auto');
+         $(idstr).css('cursor','auto');
       });
-      */
+      $(idstr).css('box-shadow','inset 0 0 1px 1px olive');
 
       elem.onmousedown = ElementDraggable.dragMouseDown
       ElementDraggable.dragElements[elementId] = targetElem;
