@@ -68,7 +68,7 @@ export class TrackballControls {
 c:\xdd-learn\iclearn\src\app\controls\TrackballControls.js
 import * as THREE from 'three';
 
-add addListeners() for control
+1. add addListeners() for control
 	this.addListeners = function () {
 	    this.domElement.addEventListener( 'contextmenu', contextmenu, false );
 	    this.domElement.addEventListener( 'mousedown', mousedown, false );
@@ -82,3 +82,6 @@ add addListeners() for control
 	    window.addEventListener( 'keyup', keyup, false );
 	}
 	this.addListeners();
+2. define screen.height if dom is passed in
+this.handleResize = function () {
+   this.screen.height = box.height > 2 ? box.height :  window.innerHeight;
