@@ -19,42 +19,54 @@ export default class ModelSourceComponent implements AfterViewInit, OnInit {
   sourceDetail: string;
 
   constructor(private appService: AppService, private appStates: AppStates, private sanitizer: DomSanitizer) {
-     this.neuronsModelSrc = appStates.getCurrentNeuronsModelSrc();
   }
 
   ngOnInit(){
-     this.neuronsModelName = "unknown";
-     this.neuronsModelPath = AppStates.neuronsModelPath;
-     this.sourceDetail = this.neuronsModelSrc;
-     if (this.neuronsModelSrc) {
-        this.generateModelDetail();
-     } else {
-        this.sourceDetail = "neuronsModelSrc is null";
-     }
-     this.sourceHtmlDetail = this.sanitizer.bypassSecurityTrustHtml(this.sourceDetail);
+     this.getModelSource();
   }
 
   ngAfterViewInit() {
   }
 
-  generateModelDetail() {
-     //this.sourceDetail = 'here';
-     //this.traverseObject(this.neuronsModelSrc);
-     //this.neuronsModelSrc = this.appStates.getCurrentNeuronsModelSrc();
-     //this.sourceDetail = this.neuronsModelSrc;
+  getModelSource() {
+     this.neuronsModelSrc = this.appStates.getCurrentNeuronsModelSrc();
+     if (this.neuronsModelSrc) {
+        this.generateModelDetail();
+     } else {
+        this.neuronsModelName = "undefined";
+        this.sourceDetail = "neuronsModelSrc is null";
+     }
+     this.neuronsModelPath = AppStates.neuronsModelPath;
+     this.sourceHtmlDetail = this.sanitizer.bypassSecurityTrustHtml(this.sourceDetail);
   }
 
-  traverseObject(obj: any) {
-     /*
+  generateModelDetail() {
+     var rawJson = JSON.parse(this.neuronsModelSrc);
+     this.neuronsModelName = rawJson.name;
+     //this.sourceDetail = this.neuronsModelSrc;
+     this.sourceDetail = '<ul>';
+     this.traverseObject('root', rawJson);
+     this.sourceDetail += '</ul>';
+  }
+
+  traverseObject(key: string, obj: any) {
      var type = typeof obj;
      if (type == 'object') {
         for (var key in obj) {
-            this.traverseObject(obj[key]);
+           var child =  obj[key];
+           var isChildObject = typeof child == 'object' ? true : false;
+           if (isChildObject) {
+              this.sourceDetail += '<li>' + key + ':<ul>';
+           }
+           this.traverseObject(key, obj[key]);
+           if (isChildObject) {
+              this.sourceDetail += '</ul></li>';
+           }
         }
      } else {
-        this.sourceDetail += ';' + JSON.stringify(obj);
+       this.sourceDetail += '<li>';
+       this.sourceDetail += key + ': ' + ((obj == null)? 'null' : JSON.stringify(obj)) + ',';
+       this.sourceDetail += '</li>';
      }
-     */
-     this.sourceDetail =  JSON.stringify(obj);
   }
 }

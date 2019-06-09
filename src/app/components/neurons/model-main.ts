@@ -28,11 +28,28 @@ export class ModelMain {
    }
 
    loadCreateModel() {
+      /*
       this.appService.loadDefaultModel().subscribe(modelData => {
          this.neuronsModel = NeuronsModel.clone(modelData);
          ModelMain.currentNeoronsModel = this.neuronsModel;
          this.appStates.setCurrentNeuronsModel(this.neuronsModel, JSON.stringify(modelData));
          this.neuronsModel.preProcess();
+         this.neuronsModel.create(this.rootGroup);
+      });
+      */
+      this.appService.loadDefaultModelSrc().subscribe(modelDataSrc => {
+         // keep original text
+         var srcJson = JSON.stringify(modelDataSrc);
+         // convert to a model
+         var modelData = new NeuronsModel();
+         Object.assign(modelData, modelDataSrc);
+         // do deep clone
+         this.neuronsModel = NeuronsModel.clone(modelData);
+         ModelMain.currentNeoronsModel = this.neuronsModel;
+         this.appStates.setCurrentNeuronsModel(this.neuronsModel, srcJson);
+         // preprocess the model
+         this.neuronsModel.preProcess();
+         // create graphs
          this.neuronsModel.create(this.rootGroup);
       });
    }

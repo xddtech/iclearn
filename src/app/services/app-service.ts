@@ -22,13 +22,25 @@ export class AppService {
 
   loadDefaultModel(): Observable<NeuronsModel> {
      var path = this.getBaseUrl() + '/assets/default-neurons-model.json';
-     console.info('path=' + path);
      return this.loadNeuronsModel(path);
   }
 
   loadNeuronsModel(path: string): Observable<NeuronsModel> {
      this.informModelPath(path);
      return this.http.get<NeuronsModel>(path);
+  }
+
+  loadDefaultModelSrc(): Observable<Object> {
+     var path = this.getBaseUrl() + '/assets/default-neurons-model.json';
+     return this.loadNeuronsModelSrc(path);
+  }
+
+  loadNeuronsModelSrc(path: string): Observable<Object> {
+     this.informModelPath(path);
+     let reqHeaders = new HttpHeaders({
+        'Accept':'application/json'
+     });
+     return this.http.get(path, {headers: reqHeaders, responseType: 'json'});
   }
 
   informModelPath(path: string) {
