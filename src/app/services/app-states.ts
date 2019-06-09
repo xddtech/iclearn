@@ -9,6 +9,7 @@ export class AppStates {
 
   static navbarElem: ElementRef;
   static neuronsModel: NeuronsModel;
+  static neuronsModelSrc: string;
   static neuronsModelPath: string;
 
   constructor() {}
@@ -20,12 +21,17 @@ export class AppStates {
      return AppStates.navbarElem.nativeElement.offsetHeight;
   }
 
-  setCurrentNeuronsModel(neuronsModel: NeuronsModel) {
+  setCurrentNeuronsModel(neuronsModel: NeuronsModel, neuronsModelSrc: string) {
      AppStates.neuronsModel = neuronsModel;
+     AppStates.neuronsModelSrc = neuronsModelSrc;
   }
 
   getCurrentNeuronsModel(): NeuronsModel {
      return AppStates.neuronsModel;
+  }
+
+  getCurrentNeuronsModelSrc(): string {
+     return AppStates.neuronsModelSrc;
   }
 
   static toDebug(): any {

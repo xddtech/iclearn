@@ -12,19 +12,24 @@ import {NeuronsModel} from './neurons-model';
   providers: [AppService, AppStates]
 })
 export default class ModelSourceComponent implements AfterViewInit, OnInit {
-  neuronsModel: NeuronsModel;
+  neuronsModelName: string;
+  neuronsModelPath: string;
+  neuronsModelSrc: string;
   sourceHtmlDetail: SafeHtml;
   sourceDetail: string;
 
   constructor(private appService: AppService, private appStates: AppStates, private sanitizer: DomSanitizer) {
-     this.neuronsModel = appStates.getCurrentNeuronsModel();
+     this.neuronsModelSrc = appStates.getCurrentNeuronsModelSrc();
   }
 
   ngOnInit(){
-     if (this.neuronsModel) {
+     this.neuronsModelName = "unknown";
+     this.neuronsModelPath = AppStates.neuronsModelPath;
+     this.sourceDetail = this.neuronsModelSrc;
+     if (this.neuronsModelSrc) {
         this.generateModelDetail();
      } else {
-        this.sourceDetail = "neuronsModel is null";
+        this.sourceDetail = "neuronsModelSrc is null";
      }
      this.sourceHtmlDetail = this.sanitizer.bypassSecurityTrustHtml(this.sourceDetail);
   }
@@ -33,18 +38,23 @@ export default class ModelSourceComponent implements AfterViewInit, OnInit {
   }
 
   generateModelDetail() {
-     this.sourceDetail = 'here';
-     //this.traverseObject(this.neuronsModel);
+     //this.sourceDetail = 'here';
+     //this.traverseObject(this.neuronsModelSrc);
+     //this.neuronsModelSrc = this.appStates.getCurrentNeuronsModelSrc();
+     //this.sourceDetail = this.neuronsModelSrc;
   }
 
   traverseObject(obj: any) {
+     /*
      var type = typeof obj;
      if (type == 'object') {
         for (var key in obj) {
             this.traverseObject(obj[key]);
         }
      } else {
-        this.sourceDetail += ';' + obj;
+        this.sourceDetail += ';' + JSON.stringify(obj);
      }
+     */
+     this.sourceDetail =  JSON.stringify(obj);
   }
 }

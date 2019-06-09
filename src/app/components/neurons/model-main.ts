@@ -29,11 +29,11 @@ export class ModelMain {
 
    loadCreateModel() {
       this.appService.loadDefaultModel().subscribe(modelData => {
-        this.neuronsModel = NeuronsModel.clone(modelData);
-        ModelMain.currentNeoronsModel = this.neuronsModel;
-        this.appStates.setCurrentNeuronsModel(this.neuronsModel);
-        this.neuronsModel.preProcess();
-        this.neuronsModel.create(this.rootGroup);
+         this.neuronsModel = NeuronsModel.clone(modelData);
+         ModelMain.currentNeoronsModel = this.neuronsModel;
+         this.appStates.setCurrentNeuronsModel(this.neuronsModel, JSON.stringify(modelData));
+         this.neuronsModel.preProcess();
+         this.neuronsModel.create(this.rootGroup);
       });
    }
 
