@@ -14,7 +14,8 @@ export default class NavbarComponent implements AfterViewInit {
 
    showDebugRoute = AppConfig.showDebugRoute;
 
-   constructor(private appStates: AppStates) {}
+   constructor(private appStates: AppStates) {
+   }
 
    ngAfterViewInit() {
       AppStates.navbarElem = this.navbarElement;

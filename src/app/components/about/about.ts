@@ -6,6 +6,7 @@ import {AppService} from '../../services/app-service';
 @Component({
   selector: 'about-page',
   templateUrl: 'about.html',
+  styleUrls: ['./about.css'],
   providers: [AppService]
 })
 export default class AboutComponent {
