@@ -6,9 +6,12 @@ import {AppService} from '../../services/app-service';
 import {AppStates} from '../../services/app-states';
 import {NeuronsModel} from './neurons-model';
 
+declare var $: any;
+
 @Component({
   selector: 'model-source',
   templateUrl: 'model-source.html',
+  styleUrls: ['./model-source.css'],
   providers: [AppService, AppStates]
 })
 export default class ModelSourceComponent implements AfterViewInit, OnInit {
@@ -17,6 +20,7 @@ export default class ModelSourceComponent implements AfterViewInit, OnInit {
   neuronsModelSrc: string;
   sourceHtmlDetail: SafeHtml;
   sourceDetail: string;
+  collapsableSourceList = [];
 
   constructor(private appService: AppService, private appStates: AppStates, private sanitizer: DomSanitizer) {
   }
@@ -26,6 +30,13 @@ export default class ModelSourceComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit() {
+     $('#model-source-detail').find('ul').addClass('model-source-ul');
+     for (var path in this.collapsableSourceList) {
+        var target = path + '-target';
+        //$('#' + path).attr('data-toggle', 'collapse');
+        //$('#' + path).attr('data-target', target);
+        $('#' + target).addClass('expand-line');
+     }
   }
 
   getModelSource() {
@@ -41,31 +52,38 @@ export default class ModelSourceComponent implements AfterViewInit, OnInit {
   }
 
   generateModelDetail() {
+     this.collapsableSourceList = [];
      var rawJson = JSON.parse(this.neuronsModelSrc);
      this.neuronsModelName = rawJson.name;
      //this.sourceDetail = this.neuronsModelSrc;
-     this.sourceDetail = '<ul>';
-     this.traverseObject('root', rawJson);
+     this.sourceDetail = '<ul id="model-source-list" class="nobull">';
+     this.traverseObject('root', rawJson, '');
      this.sourceDetail += '</ul>';
   }
 
-  traverseObject(key: string, obj: any) {
+  traverseObject(key: string, obj: any, ppath: string) {
      var type = typeof obj;
      if (type == 'object') {
+        var path = ppath;
+        var isArray = Array.isArray(obj);
         for (var key in obj) {
            var child =  obj[key];
            var isChildObject = typeof child == 'object' ? true : false;
            if (isChildObject) {
-              this.sourceDetail += '<li>' + key + ':<ul>';
+              path = ppath + '-' + key;
+              var target = path + '-target';
+              this.sourceDetail += '<li><a id="' + path + '" href="#' + target + '" data-toggle="collapse">' + key + '</a>:' +  
+                  '<ul id="' + target + '" class="collapse">';
+              this.collapsableSourceList.push(path);
            }
-           this.traverseObject(key, obj[key]);
+           this.traverseObject(key, obj[key], path);
            if (isChildObject) {
               this.sourceDetail += '</ul></li>';
            }
         }
      } else {
        this.sourceDetail += '<li>';
-       this.sourceDetail += key + ': ' + ((obj == null)? 'null' : JSON.stringify(obj)) + ',';
+       this.sourceDetail += key + ': ' + ((obj == null)? 'null' : JSON.stringify(obj));
        this.sourceDetail += '</li>';
      }
   }

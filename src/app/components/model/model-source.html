@@ -1,11 +1,19 @@
-<div class="container">
+<div class="container-fluid">
     <div class="row text-center">
-      <h3>{{neuronsModelName}}</h3>
+      <h4>{{neuronsModelName}}</h4>
     </div>
+
+    <select  class="source-display-type">
+       <option value="Model">Model</option>
+       <option value="Text">Text</option>
+       <option value="Processed">Processed</option>
+    </select> 
     <div class="row text-center">
-        {{neuronsModelPath}}
+           source: {{neuronsModelPath}} <span *ngIf="!neuronsModelPath">undefined</span>
     </div>
+    
+    <hr class="hr-padding-margin">
     <div id="model-source-detail">
         <div [innerHtml]="sourceHtmlDetail"></div>
     </div>
-</div>  
+</div>
