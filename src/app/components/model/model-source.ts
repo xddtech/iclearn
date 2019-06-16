@@ -1,4 +1,4 @@
-import {Component, AfterViewInit, OnInit} from '@angular/core';
+import {Component, AfterViewInit, OnInit, AfterViewChecked} from '@angular/core';
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 import {Observable} from "rxjs";
 
@@ -14,7 +14,7 @@ declare var $: any;
   styleUrls: ['./model-source.css'],
   providers: [AppService, AppStates]
 })
-export default class ModelSourceComponent implements AfterViewInit, OnInit {
+export default class ModelSourceComponent implements AfterViewInit, OnInit, AfterViewChecked {
   neuronsModelName: string;
   neuronsModelPath: string;
   neuronsModelSrc: string;
@@ -32,14 +32,31 @@ export default class ModelSourceComponent implements AfterViewInit, OnInit {
   ngAfterViewInit() {
      $('#model-source-detail').find('ul').addClass('model-source-ul');
      for (var path in this.collapsableSourceList) {
-       var target = path + '-target';
-       //$('#' + path).attr('data-toggle', 'collapse');
-       //$('#' + path).attr('data-target', target);
-       //$('#' + target).addClass('expand-line');
+        var target = path + '-target';
+        //$('#' + path).attr('data-toggle', 'collapse');
+        //$('#' + path).attr('data-target', target);
+        //$('#' + target).addClass('expand-line');
 
-       var btn = path + '-btn';
-       $('#' + btn).onclick = ModelSourceComponent.expandBtnClick(this);
+        var btnId = path + '-btn';
+        //$('#' + btnId).onclick = ModelSourceComponent.expandBtnClick(btnId);
+        /* myEl is null
+        var myEl = document.getElementById(btnId);
+        myEl.addEventListener('click', function() {
+           alert('Hello world');
+        }, false);
+        */
     }
+  }
+
+  ngAfterViewChecked() {
+    /*
+    for (var path in this.collapsableSourceList) {
+       var target = path + '-target';
+       var btnId = path + '-btn';
+       // only called first time??
+       $('#' + btnId).onclick = ModelSourceComponent.expandBtnClick(btnId);
+   }
+   */
   }
 
   getModelSource() {
@@ -76,16 +93,13 @@ export default class ModelSourceComponent implements AfterViewInit, OnInit {
              path = ppath + '-' + key;
              var target = path + '-target';
 
-             var btnid = path + '-btn'; 
-             var btn = '<input type="button" id="' + btnid + '" href="#' + target + 
+             var btnId = path + '-btn'; 
+             var btn = '<input type="button" id="' + btnId + '" href="#' + target + 
                        '" data-toggle="collapse" value="+" class="expand-btn"></input>';
-                       //'" data-toggle="collapse" value="+" class="expand-btn" onclick="ModelSourceComponent.expandBtnClick()"></input>';
-             var line = '<li id="' + path + '" >' + btn + key + ':' +  
+
+             var line = '<li id="' + path + '" >' + btn + '&nbsp;' + key + ':' +  
                              '<ul id="' + target + '" class="collapse expand-verticalline model-source-ul">';
              this.sourceDetail += line;
-
-             //this.sourceDetail += '<li><a id="' + path + '" href="#' + target + '" data-toggle="collapse">' + key + '</a>:' +  
-             //    '<ul id="' + target + '" class="collapse">';
              this.collapsableSourceList.push(path);
           }
           this.traverseObject(key, obj[key], path);
@@ -100,8 +114,17 @@ export default class ModelSourceComponent implements AfterViewInit, OnInit {
     }
   }
 
-  static expandBtnClick(event: any) {
-    var e = event;
-    alert('click');
+  static expandBtnClick(btnId: string) {
+     //$('#' + btnId).value('=');
+    //var e = event;
+    //e.target.vaule = (e.target.value == '+' ? '=' : '+');
+    //this.value = (this.value == '+' ? '=' : '+');
+    //alert(btnId);
+    /* can't find object
+    var myEl = document.getElementById(btnId);
+    if (!myEl) {
+       console.error(btnId + ' is null');
+    }
+    */
   }
 }
