@@ -32,11 +32,14 @@ export default class ModelSourceComponent implements AfterViewInit, OnInit {
   ngAfterViewInit() {
      $('#model-source-detail').find('ul').addClass('model-source-ul');
      for (var path in this.collapsableSourceList) {
-        var target = path + '-target';
-        //$('#' + path).attr('data-toggle', 'collapse');
-        //$('#' + path).attr('data-target', target);
-        $('#' + target).addClass('expand-line');
-     }
+       var target = path + '-target';
+       //$('#' + path).attr('data-toggle', 'collapse');
+       //$('#' + path).attr('data-target', target);
+       //$('#' + target).addClass('expand-line');
+
+       var btn = path + '-btn';
+       $('#' + btn).onclick = ModelSourceComponent.expandBtnClick(this);
+    }
   }
 
   getModelSource() {
@@ -62,29 +65,43 @@ export default class ModelSourceComponent implements AfterViewInit, OnInit {
   }
 
   traverseObject(key: string, obj: any, ppath: string) {
-     var type = typeof obj;
-     if (type == 'object') {
-        var path = ppath;
-        var isArray = Array.isArray(obj);
-        for (var key in obj) {
-           var child =  obj[key];
-           var isChildObject = typeof child == 'object' ? true : false;
-           if (isChildObject) {
-              path = ppath + '-' + key;
-              var target = path + '-target';
-              this.sourceDetail += '<li><a id="' + path + '" href="#' + target + '" data-toggle="collapse">' + key + '</a>:' +  
-                  '<ul id="' + target + '" class="collapse">';
-              this.collapsableSourceList.push(path);
-           }
-           this.traverseObject(key, obj[key], path);
-           if (isChildObject) {
-              this.sourceDetail += '</ul></li>';
-           }
-        }
-     } else {
-       this.sourceDetail += '<li>';
-       this.sourceDetail += key + ': ' + ((obj == null)? 'null' : JSON.stringify(obj));
-       this.sourceDetail += '</li>';
-     }
+    var type = typeof obj;
+    if (type == 'object') {
+       var path = ppath;
+       var isArray = Array.isArray(obj);
+       for (var key in obj) {
+          var child =  obj[key];
+          var isChildObject = typeof child == 'object' ? true : false;
+          if (isChildObject) {
+             path = ppath + '-' + key;
+             var target = path + '-target';
+
+             var btnid = path + '-btn'; 
+             var btn = '<input type="button" id="' + btnid + '" href="#' + target + 
+                       '" data-toggle="collapse" value="+" class="expand-btn"></input>';
+                       //'" data-toggle="collapse" value="+" class="expand-btn" onclick="ModelSourceComponent.expandBtnClick()"></input>';
+             var line = '<li id="' + path + '" >' + btn + key + ':' +  
+                             '<ul id="' + target + '" class="collapse expand-verticalline model-source-ul">';
+             this.sourceDetail += line;
+
+             //this.sourceDetail += '<li><a id="' + path + '" href="#' + target + '" data-toggle="collapse">' + key + '</a>:' +  
+             //    '<ul id="' + target + '" class="collapse">';
+             this.collapsableSourceList.push(path);
+          }
+          this.traverseObject(key, obj[key], path);
+          if (isChildObject) {
+             this.sourceDetail += '</ul></li>';
+          }
+       }
+    } else {
+      this.sourceDetail += '<li class="model-source-li">';
+      this.sourceDetail +=  key + ': ' + ((obj == null)? 'null' : JSON.stringify(obj));
+      this.sourceDetail += '</li>';
+    }
+  }
+
+  static expandBtnClick(event: any) {
+    var e = event;
+    alert('click');
   }
 }
