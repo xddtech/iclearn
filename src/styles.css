@@ -24,6 +24,13 @@
 .model-source-li {
     padding-left: 5px;
 }
+.model-root-ul {
+    border-left: 1px dashed green;
+    height: 100%;
+    margin: 0px 0px 0px 0px;
+    padding: 0px;
+    background: rgba(76, 175, 80, 0.1) 
+}
 
 .padding-margin-0 {
     padding: 0px;
@@ -44,13 +51,14 @@
     height: 100%;
     margin: 0px 0px 0px 0px;
     padding: 0px;
-    background: rgba(76, 175, 80, 0.2) 
+    background: rgba(76, 175, 80, 0.1) 
  }
  .expand-btn {
-    background: white;
+    background: rgb(250, 241, 185);
     padding: 0px 2px 0px 2px;
     margin: 2px 0px 2px 3px;
     border: 1px solid green;
     border-radius: 4px;
     transform: scaleY(0.8);
+    font-weight: bold;
   }
