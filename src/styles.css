@@ -22,13 +22,17 @@
     padding-left: 20px;
 }
 .model-source-li {
-    padding-left: 5px;
+    padding-left: 0px;
+}
+.model-empty-li {
+    color: grey;
+    font-style: italic;
 }
 .model-root-ul {
     border-left: 1px dashed green;
     height: 100%;
     margin: 0px 0px 0px 0px;
-    padding: 0px;
+    padding: 5px 0px 5px 5px;
     background: rgba(76, 175, 80, 0.1) 
 }
 
@@ -43,19 +47,16 @@
 }
 
 .expand-verticalline {
-    position: relative;
-    left: 20px;
-    top: 0px;
     border-left: 1px dashed green;
     height: 100%;
     margin: 0px 0px 0px 0px;
-    padding: 0px;
+    padding-left: 20px;
     background: rgba(76, 175, 80, 0.1) 
 }
 .expand-btn {
     background: rgb(250, 241, 185);
-    padding: 0px 2px 0px 2px;
-    margin: 2px 0px 2px 3px;
+    padding: 0px 2px 0px 0px;
+    margin: 2px 0px 2px 0px;
     border: 1px solid green;
     border-radius: 4px;
     transform: scaleY(0.8);

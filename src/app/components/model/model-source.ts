@@ -86,7 +86,9 @@ export default class ModelSourceComponent implements AfterViewInit, OnInit, Afte
     if (type == 'object') {
        var path = ppath;
        var isArray = Array.isArray(obj);
+       var isEmpty = true;
        for (var ckey in obj) {
+          isEmpty = false;
           var child =  obj[ckey];
           var isChildObject = typeof child == 'object' ? true : false;
           if (isChildObject) {
@@ -98,7 +100,7 @@ export default class ModelSourceComponent implements AfterViewInit, OnInit, Afte
                        '" data-toggle="collapse" value="&#58" class="expand-btn"></input>';
 
              var desc = this.getNodeDescription(child, ckey, key);
-             var line = '<li id="' + path + '" >' + btn + '&nbsp;' + desc + ':' +  
+             var line = '<li id="' + path + '" >' + btn + '&nbsp;<b>' + desc + '</b>:' +  
                     '<ul id="' + target + '" class="collapse expand-verticalline model-source-ul">';
              this.sourceDetail += line;
              this.collapsableSourceList.push(path);
@@ -108,9 +110,12 @@ export default class ModelSourceComponent implements AfterViewInit, OnInit, Afte
              this.sourceDetail += '</ul></li>';
           }
        }
+       if (isEmpty) {
+          this.sourceDetail += '<li class="model-source-li model-empty-li">empty object</li>';
+       }
     } else {
       this.sourceDetail += '<li class="model-source-li">';
-      this.sourceDetail +=  key + ': ' + ((obj == null)? 'null' : JSON.stringify(obj));
+      this.sourceDetail +=  key + ': ' + JSON.stringify(obj);
       this.sourceDetail += '</li>';
     }
   }

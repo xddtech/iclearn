@@ -9,3 +9,9 @@
     padding: 0px;
     margin: 5px 0px 5px 0px;
 }
+
+#model-source-detail {
+    font-family: Lucida Console;
+    font-size: 0.9em;
+    color: black;
+}
