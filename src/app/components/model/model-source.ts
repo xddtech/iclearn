@@ -95,11 +95,11 @@ export default class ModelSourceComponent implements AfterViewInit, OnInit, Afte
 
              var btnId = path + '-btn'; 
              var btn = '<input type="button" id="' + btnId + '" href="#' + target + 
-                       '" data-toggle="collapse" value="&#177" class="expand-btn"></input>';
+                       '" data-toggle="collapse" value="&#58" class="expand-btn"></input>';
 
              var desc = this.getNodeDescription(child, ckey, key);
              var line = '<li id="' + path + '" >' + btn + '&nbsp;' + desc + ':' +  
-                             '<ul id="' + target + '" class="collapse expand-verticalline model-source-ul">';
+                    '<ul id="' + target + '" class="collapse expand-verticalline model-source-ul">';
              this.sourceDetail += line;
              this.collapsableSourceList.push(path);
           }

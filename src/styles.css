@@ -37,7 +37,6 @@
     margin: 0px;
 }
 
-
 .expand-line {
     border-left: 6px solid green;
     height: 100px;
@@ -52,8 +51,8 @@
     margin: 0px 0px 0px 0px;
     padding: 0px;
     background: rgba(76, 175, 80, 0.1) 
- }
- .expand-btn {
+}
+.expand-btn {
     background: rgb(250, 241, 185);
     padding: 0px 2px 0px 2px;
     margin: 2px 0px 2px 3px;
@@ -61,4 +60,4 @@
     border-radius: 4px;
     transform: scaleY(0.8);
     font-weight: bold;
-  }
+}
