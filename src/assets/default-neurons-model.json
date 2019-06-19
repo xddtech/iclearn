@@ -1,0 +1,53 @@
+{
+   "name": "Default Neurons Model",
+   "config": {},
+   "layers": [
+      {
+         "layerType": "INPUT",
+         "linkType": "DenseLayer",
+         "layerIndex": 0,
+         "cellList": [
+            {
+               "label": "width",
+               "cellType": null
+            },
+            {
+               "label": "height",
+               "cellType": null
+            }
+        ]
+      },
+      {
+        "layerType": "NET",
+        "linkType": "DenseLayer",
+        "layerIndex": 1,
+        "cellList": [
+            {
+               "cellType": "NET"
+            },
+            {
+               "cellType": "NET"
+            },
+            {
+              "cellType": "NET"
+            },
+            {
+               "cellType": "BIAS"
+            }
+        ]
+      },
+      {
+        "layerType": "OUTPUT",
+        "linkType": "DenseLayer",
+        "layerIndex": 2,
+        "cellList": [
+            {
+               "cellType": "OUTPUT"
+            },
+            {
+               "cellType": "OUTPUT"
+            }
+        ]
+      }
+   ]
+}
