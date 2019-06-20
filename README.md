@@ -52,7 +52,7 @@ c:\xdd-learn\iclearn\node_modules\three\src\Three.d.ts
 export var TrackballControls: any;
 or
 export class TrackballControls {
-    constructor(camera: any);
+    constructor(camera: any, elem: any);
     rotateSpeed: number;
     zoomSpeed: number;
     panSpeed: number;
