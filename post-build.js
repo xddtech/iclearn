@@ -12,9 +12,15 @@ function logerror(str) {
 
 function main() {
     log('.......... post-build started ..........');
-    var aboutFile = 'dist/iclearn/assets/about.html';
+    var filePath = 'dist/iclearn/assets/about.html';
+    var data = fsys.readFileSync(filePath);
+    var json = JSON.parse(data.toString());
+
     var stamp = (new Date()).toString();
-    fsys.appendFileSync(aboutFile, '<div>' + stamp + '</div>');
+    json['build'] = stamp;
+
+    fsys.writeFileSync(filePath, JSON.stringify(json));
+   
     log('.......... post-build completed ..........');
 }
 

@@ -11,3 +11,8 @@
 .about-text {
     font-size: 2em;
 }
+.build-info {
+    font-size: 0.8em;
+    font-style: italic;
+    padding-top: 40px;
+}

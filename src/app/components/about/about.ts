@@ -11,6 +11,7 @@ import {AppService} from '../../services/app-service';
 })
 export default class AboutComponent {
   aboutText: string;
+  buildInfo: string;
 
   constructor(private appService: AppService) {
      this.load();
@@ -18,7 +19,13 @@ export default class AboutComponent {
 
   load() {
     this.appService.getAboutHtml().subscribe(data => {
-       this.aboutText = data;
+       var obj = JSON.parse(data);
+       this.aboutText = obj.aboutText;
+       if (obj.build) {
+          this.buildInfo = obj.build;
+       } else {
+          this.buildInfo= (new Date()).toString();
+       }
     });
   }
 }
