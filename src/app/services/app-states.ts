@@ -34,6 +34,10 @@ export class AppStates {
      return AppStates.neuronsModelSrc;
   }
 
+  static clickModelSourceNode(btnId: string) {
+     //alert( 'clicked: ' + btnId);
+  }
+
   static toDebug(): any {
      var json = {};
      if (AppStates.navbarElem) {

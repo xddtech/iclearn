@@ -20,7 +20,9 @@ export default class ModelSourceComponent implements AfterViewInit, OnInit, Afte
   neuronsModelSrc: string;
   sourceHtmlDetail: SafeHtml;
   sourceDetail: string;
-  collapsableSourceList = [];
+  //collapsableSourceList = [];
+
+  static btnState = {};
 
   constructor(private appService: AppService, private appStates: AppStates, private sanitizer: DomSanitizer) {
   }
@@ -31,32 +33,27 @@ export default class ModelSourceComponent implements AfterViewInit, OnInit, Afte
 
   ngAfterViewInit() {
      $('#model-source-detail').find('ul').addClass('model-source-ul');
+     /*
      for (var path in this.collapsableSourceList) {
         var target = path + '-target';
         //$('#' + path).attr('data-toggle', 'collapse');
         //$('#' + path).attr('data-target', target);
         //$('#' + target).addClass('expand-line');
-
         var btnId = path + '-btn';
-        //$('#' + btnId).onclick = ModelSourceComponent.expandBtnClick(btnId);
-        /* myEl is null
-        var myEl = document.getElementById(btnId);
-        myEl.addEventListener('click', function() {
-           alert('Hello world');
-        }, false);
-        */
     }
+    */
+    $('#model-source-list .expand-btn').click(function(event) {
+       var btnId = event.target.id;
+       var sign = $('#' + event.target.id).val();
+       sign = (sign == '+')? '=' : '+';
+       $('#' + event.target.id).val(sign);
+       ModelSourceComponent.btnState['btn' + btnId] = sign;
+
+       AppStates.clickModelSourceNode(btnId);
+    });
   }
 
   ngAfterViewChecked() {
-    /*
-    for (var path in this.collapsableSourceList) {
-       var target = path + '-target';
-       var btnId = path + '-btn';
-       // only called first time??
-       $('#' + btnId).onclick = ModelSourceComponent.expandBtnClick(btnId);
-   }
-   */
   }
 
   getModelSource() {
@@ -72,7 +69,7 @@ export default class ModelSourceComponent implements AfterViewInit, OnInit, Afte
   }
 
   generateModelDetail() {
-     this.collapsableSourceList = [];
+     //this.collapsableSourceList = [];
      var rawJson = JSON.parse(this.neuronsModelSrc);
      this.neuronsModelName = rawJson.name;
      //this.sourceDetail = this.neuronsModelSrc;
@@ -96,14 +93,27 @@ export default class ModelSourceComponent implements AfterViewInit, OnInit, Afte
              var target = path + '-target';
 
              var btnId = path + '-btn'; 
+             var collapse = 'collapse';
+             var sign = '+';
+             if (ModelSourceComponent.btnState['btn' + btnId]) {
+                if (ModelSourceComponent.btnState['btn' + btnId] == '+') {
+                  collapse = 'collapse';
+                  sign = '+'
+                } else {
+                  collapse = 'collapse.show';
+                  sign = '=';
+                }
+             }
              var btn = '<input type="button" id="' + btnId + '" href="#' + target + 
-                       '" data-toggle="collapse" value="&#58" class="expand-btn"></input>';
+                       '" data-toggle="collapse" value="' + sign + '" class="expand-btn"></input>';
+              //value="&#58" --> :
 
              var desc = this.getNodeDescription(child, ckey, key);
              var line = '<li id="' + path + '" >' + btn + '&nbsp;<b>' + desc + '</b>:' +  
-                    '<ul id="' + target + '" class="collapse expand-verticalline model-source-ul">';
+                    '<ul id="' + target + '" class="' + collapse + ' expand-verticalline model-source-ul">';
+
              this.sourceDetail += line;
-             this.collapsableSourceList.push(path);
+             //this.collapsableSourceList.push(path);
           }
           this.traverseObject(ckey, obj[ckey], path);
           if (isChildObject) {
