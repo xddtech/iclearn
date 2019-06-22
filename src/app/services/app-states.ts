@@ -1,6 +1,7 @@
 import {Injectable, ElementRef} from '@angular/core';
 
 import {NeuronsModel} from '../components/model/neurons-model';
+import {NeuronsModelView} from '../components/neurons/neurons-model-view';
 
 declare var JSON: any;
 
@@ -11,6 +12,7 @@ export class AppStates {
   static neuronsModel: NeuronsModel;
   static neuronsModelSrc: string;
   static neuronsModelPath: string;
+  static neuronsModelViewRef: NeuronsModelView;
 
   constructor() {}
 
@@ -28,6 +30,14 @@ export class AppStates {
 
   getCurrentNeuronsModel(): NeuronsModel {
      return AppStates.neuronsModel;
+  }
+
+  setCurrentNeuronsModelView(neuronsModelView: NeuronsModelView ){
+     AppStates.neuronsModelViewRef = neuronsModelView;
+  }
+
+  getCurrentNeuronsModelView(): NeuronsModelView {
+     return AppStates.neuronsModelViewRef;
   }
 
   getCurrentNeuronsModelSrc(): string {

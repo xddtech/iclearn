@@ -63,11 +63,22 @@ export class TrackballControls {
     keys: any;
     addEventListener: any;
     update(): void;
+    setTarget(x: any, y: any, z: any): void;
 }
 
 c:\xdd-learn\iclearn\src\app\controls\TrackballControls.js
 import * as THREE from 'three';
 
+
+0.  add setTarget()
+	this.setTarget = function(x, y, z) {
+		this.target.x = x;
+		this.target.y = y;
+		this.target.z = z;
+		this.target0.x = x;
+		this.target0.y = y;
+		this.target0.z = z;
+	}
 1. add addListeners() for control
 	this.addListeners = function () {
 	    this.domElement.addEventListener( 'contextmenu', contextmenu, false );

@@ -16,6 +16,7 @@ const neuronsStageDiv = "neurons-stage-div";
 })
 export default class NeuronsStageComponent implements AfterViewInit, OnDestroy {
 
+  static neuronsModelViewRef: NeuronsModelView;
   private neuronsModelView: NeuronsModelView;
 
   constructor(private appService: AppService, private appStates: AppStates) {}
@@ -29,10 +30,13 @@ export default class NeuronsStageComponent implements AfterViewInit, OnDestroy {
   ngOnDestroy() {
      // show scrollbar for other routes
      $("body").css("overflow", "auto");
+     console.info('stage destroied-----------------------');
+     var vcamera = NeuronsModelView.viewCamera;
+     console.info('befoer ===== x=' + vcamera.position.x + ', y=' +  vcamera.position.y + ', z=' +  vcamera.position.z);
   }
 
   private getNeuronsStageElement(): Element {
-    return document.getElementById(neuronsStageDiv);
+     return document.getElementById(neuronsStageDiv);
   }
 
   private afterShowElementReady() {
@@ -45,11 +49,17 @@ export default class NeuronsStageComponent implements AfterViewInit, OnDestroy {
   }
 
   private createShow() {
-    if (this.neuronsModelView == null) {
+    if ( !this.appStates.getCurrentNeuronsModelView() ) {
        this.neuronsModelView = new NeuronsModelView(this.getNeuronsStageElement(), this.appService, this.appStates);
        this.neuronsModelView.create();
+       //NeuronsStageComponent.neuronsModelViewRef = this.neuronsModelView;
+       this.appStates.setCurrentNeuronsModelView(this.neuronsModelView);
     } else {
-      this.getNeuronsStageElement().appendChild(NeuronsModelView.viewRender.domElement);
+       //this.neuronsModelView = NeuronsStageComponent.neuronsModelViewRef ;
+       this.neuronsModelView = this.appStates.getCurrentNeuronsModelView();
+       this.getNeuronsStageElement().appendChild(NeuronsModelView.viewRender.domElement);
+       this.neuronsModelView.redisplay();
+       //this.neuronsModelView.addCameraAndControls();
        console.log("loaded the existing show renderer");
     }
   }

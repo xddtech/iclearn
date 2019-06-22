@@ -77,6 +77,14 @@ THREE.TrackballControls = function ( object, domElement ) {
 	var startEvent = { type: 'start' };
 	var endEvent = { type: 'end' };
 
+	this.setTarget = function(x, y, z) {
+		this.target.x = x;
+		this.target.y = y;
+		this.target.z = z;
+		this.target0.x = x;
+		this.target0.y = y;
+		this.target0.z = z;
+	}
 
 	// methods
 
