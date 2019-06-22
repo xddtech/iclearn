@@ -30,9 +30,6 @@ export default class NeuronsStageComponent implements AfterViewInit, OnDestroy {
   ngOnDestroy() {
      // show scrollbar for other routes
      $("body").css("overflow", "auto");
-     console.info('stage destroied-----------------------');
-     var vcamera = NeuronsModelView.viewCamera;
-     console.info('befoer ===== x=' + vcamera.position.x + ', y=' +  vcamera.position.y + ', z=' +  vcamera.position.z);
   }
 
   private getNeuronsStageElement(): Element {

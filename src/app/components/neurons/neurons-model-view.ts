@@ -77,28 +77,21 @@ export class NeuronsModelView {
     window.addEventListener("resize", NeuronsModelView.onWindowResize);
     NeuronsModelView.listenNeuronsStageEvents();
 
-     var ot = {
-        x: NeuronsModelView.appCamControl.target.x,
-        y: NeuronsModelView.appCamControl.target.y,
-        z: NeuronsModelView.appCamControl.target.z
+     var prevTarget = {
+        x: 0,
+        y: 0,
+        z: 0
      };
      if (NeuronsModelView.appCamControl) {
+        prevTarget.x = NeuronsModelView.appCamControl.target.x;
+        prevTarget.y = NeuronsModelView.appCamControl.target.y;
+        prevTarget.z = NeuronsModelView.appCamControl.target.z;
         NeuronsModelView.appCamControl.dispose();
-        var t = NeuronsModelView.appCamControl.target;
-        console.info('old target x=' + t.x + ', y=' +  t.y + ', z=' +  t.z);
      }
-     var vcamera = NeuronsModelView.viewCamera;
-     //var temp = {
-     //  x: vcamera.position.x,
-     //  y: vcamera.position.y,
-     //  z: vcamera.position.z
-     //}
-    //console.info('redisplay x=' + vcamera.position.x + ', y=' +  vcamera.position.y + ', z=' +  vcamera.position.z);
 
      var trackball = new THREE.TrackballControls(NeuronsModelView.viewCamera, document.getElementById('neurons-stage-div'));
-     trackball.setTarget(ot.x, ot.y, ot.z);
-
      NeuronsModelView.appCamControl = trackball;
+     trackball.setTarget(prevTarget.x, prevTarget.y, prevTarget.z);
      trackball.rotateSpeed = 1.0;
      trackball.zoomSpeed = 1.0;
      trackball.panSpeed = 1.0;
@@ -108,13 +101,6 @@ export class NeuronsModelView {
      trackball.dynamicDampingFactor = 0.3;
      trackball.keys = [ 65, 83, 68 ];
      trackball.addEventListener('change', NeuronsModelView.renderScene);
-
-     //console.info('redisplay222 x=' + vcamera.position.x + ', y=' +  vcamera.position.y + ', z=' +  vcamera.position.z);
-
-     //vcamera.position.x = temp.x;
-     //vcamera.position.y = temp.y;
-     //vcamera.position.z = temp.z;
-
    }
 
    addShowObjects(): void {
