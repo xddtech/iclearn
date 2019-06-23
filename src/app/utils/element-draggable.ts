@@ -2,6 +2,7 @@ declare var $: any;
 
 export class ElementDraggable {
    static dragElements = {};
+   static dragElementsPos = {};
    static mpos1 = {x: 0, y: 0};
    static mpos2 = {x: 0, y: 0};
    static isDragging = false;
@@ -82,8 +83,15 @@ export class ElementDraggable {
       mpos2.x = mevent.clientX;
       mpos2.y = mevent.clientY;
       // set the element's new position:
-      elem.style.top = (elem.offsetTop - mpos1.y) + "px";
-      elem.style.left = (elem.offsetLeft - mpos1.x) + "px";
+      var pos = {
+         top: elem.offsetTop - mpos1.y,
+         left: elem.offsetLeft - mpos1.x
+      }
+      const target = mevent.currentTarget as any;
+      var key = target.id;
+      ElementDraggable.dragElementsPos[key] = pos;
+      elem.style.top = pos.top + "px";
+      elem.style.left = pos.left + "px";
    }
 
    static closeDragElement(mevent: MouseEvent) {

@@ -1,4 +1,4 @@
-import {Component, ElementRef, ViewChild, AfterViewInit} from '@angular/core';
+import {Component, ElementRef, ViewChild, AfterViewInit, OnDestroy} from '@angular/core';
 import {ElementDraggable} from '../../utils/element-draggable';
 import {AppService} from '../../services/app-service';
 import {AppStates} from '../../services/app-states';
@@ -14,7 +14,7 @@ declare var $: any;
     styleUrls: ['./modelnav-panel.css'],
     providers: [AppService, AppStates]
  })
- export default class ModelNavPanelComponent implements AfterViewInit {
+ export default class ModelNavPanelComponent implements AfterViewInit, OnDestroy {
     @ViewChild('modelNavPanel') modelNavPanelRef: ElementRef;
     @ViewChild('layersNavPanel') layersNavPanelRef: ElementRef;
     @ViewChild('dataInputPanel') dataInputPanelRef: ElementRef;
@@ -24,14 +24,46 @@ declare var $: any;
     hideDataInputPanel = true;
     inputPanelDragRegistered = false;
 
+    static navPanelState = {};
+
     constructor(private appService: AppService, private appStates: AppStates) {}
  
     ngAfterViewInit() {
-       var top =  10 + this.appStates.getNavbarHeight();
+       var top;
+       var left;
+       var prevPos = ElementDraggable.dragElementsPos['modelnav-panel'];
+       if (prevPos) {
+          top = prevPos.top;
+          left = prevPos.left;
+       } else {
+          top = 10 + this.appStates.getNavbarHeight();
+          left = 10;
+       }
        $('#modelnav-panel').css('top', top + 'px');
-       $('#modelnav-panel').css('left', '10px');
+       $('#modelnav-panel').css('left', left + 'px');
 
        ElementDraggable.register('modelnav-head', 'modelnav-panel', {});
+       this.redisplay();
+    }
+
+    ngOnDestroy() {
+        ModelNavPanelComponent.navPanelState['hideDataInputPanel'] = this.hideDataInputPanel;
+        ModelNavPanelComponent.navPanelState['hideLayersNavPanel'] = this.hideLayersNavPanel;
+    }
+
+    redisplay() {
+        var hideDataInputPanel = ModelNavPanelComponent.navPanelState['hideDataInputPanel'];
+        if (typeof hideDataInputPanel !== 'undefined') {
+           this.hideDataInputPanel = hideDataInputPanel;
+           if (!this.hideDataInputPanel) {
+              this.openDataInputPanel();
+           }
+        }
+        var hideLayersNavPanel = ModelNavPanelComponent.navPanelState['hideLayersNavPanel'];
+        if (typeof hideLayersNavPanel !== 'undefined') {
+           this.hideLayersNavPanel = hideLayersNavPanel;
+           this.openLayersPanel();
+        }
     }
 
     resetModelView() {
@@ -53,8 +85,16 @@ declare var $: any;
 
     openLayersPanel() {
        var menuElem = this.modelNavPanelRef.nativeElement;
-       var top = menuElem.offsetTop;
-       var left = menuElem.offsetLeft + menuElem.offsetWidth + 10;
+       var top;
+       var left;
+       var prevPos = ElementDraggable.dragElementsPos['layersnav-panel'];
+       if (prevPos) {
+           top = prevPos.top;
+           left = prevPos.left;
+       } else {
+           top = menuElem.offsetTop;
+           left = menuElem.offsetLeft + menuElem.offsetWidth + 10;
+       }
        $('#layersnav-panel').css('top', top + 'px');
        $('#layersnav-panel').css('left', left + 'px');
 
@@ -77,8 +117,16 @@ declare var $: any;
     positionDataInputPanel() {
        var inputPanel = this.dataInputPanelRef as any;
        var nativeElement = inputPanel.rootRef.nativeElement;
-       var top = window.innerHeight - nativeElement.offsetHeight - 20;
-       var left = window.innerWidth/2 - nativeElement.offsetWidth/2;
+       var top;
+       var left;
+       var prevPos = ElementDraggable.dragElementsPos['datainput-panel'];
+       if (prevPos) {
+           top = prevPos.top;
+           left = prevPos.left;
+       } else {
+           top = window.innerHeight - nativeElement.offsetHeight - 20;
+           left = window.innerWidth/2 - nativeElement.offsetWidth/2;
+       }
        $('#datainput-panel').css('top', top + 'px');
        $('#datainput-panel').css('left', left + 'px');
 

@@ -1,5 +1,5 @@
 import {Component, ElementRef, ViewChild, AfterViewInit, AfterContentChecked, HostBinding,
-    EventEmitter, Input, Output} from '@angular/core';
+    EventEmitter, Input, Output, OnDestroy} from '@angular/core';
 import {ElementDraggable} from '../../utils/element-draggable';
 import {AppService} from '../../services/app-service';
 import {AppStates} from '../../services/app-states';
@@ -16,7 +16,7 @@ declare var $: any;
     styleUrls: ['./datainput-panel.css'],
     providers: [AppService, AppStates]
 })
-export default class DataInputPanelComponent implements AfterViewInit, AfterContentChecked {
+export default class DataInputPanelComponent implements AfterViewInit, AfterContentChecked, OnDestroy {
    @ViewChild('dataInputPanelRoot') rootRef: ElementRef;
    @Output() closeDataInputPanelEvent = new EventEmitter();
    @Input() neuronsModel: NeuronsModel;
@@ -33,6 +33,9 @@ export default class DataInputPanelComponent implements AfterViewInit, AfterCont
    }
 
    ngAfterContentChecked() {
+   }
+
+   ngOnDestroy() {
    }
 
    onInputTypeChange(newValue) {
