@@ -18,16 +18,28 @@ export default class NavbarComponent implements AfterViewInit {
       'homeRoute': '/',
       'modelRoute': '/model',
       'aboutRoute': '/about',
-      'debugRoute': 'debug'
+      'debugRoute': '/debug'
    };
    activeRoute = "";
    showDebugRoute = AppConfig.showDebugRoute;
 
    constructor(private appStates: AppStates, private router: Router) {
+       /*
+      router.events.subscribe(val => {
+        if (location.path() != "") {
+          this.route = location.path();
+        } else {
+          this.route = "Home";
+        }
+      });
+      */
    }
 
    ngAfterViewInit() {
       AppStates.navbarElem = this.navbarElement;
+
+      this.activeRoute = 'homeRoute';
+      $('#' + this.activeRoute).addClass('navitem-active');
    }
 
    clickRoute($event: any) {

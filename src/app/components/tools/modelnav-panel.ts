@@ -43,7 +43,7 @@ declare var $: any;
           top = prevPos.top;
           left = prevPos.left;
        } else {
-          top = 10 + this.appStates.getNavbarHeight();
+          top = 20 + this.appStates.getNavbarHeight();
           left = 10;
        }
        $('#modelnav-panel').css('top', top + 'px');
@@ -117,7 +117,7 @@ declare var $: any;
           // do for the first time
           setTimeout(() => {
              this.positionDataInputPanel();
-          }, 600);
+          }, 200);
        }
     }
 
@@ -131,8 +131,10 @@ declare var $: any;
            top = prevPos.top;
            left = prevPos.left;
        } else {
-           top = window.innerHeight - nativeElement.offsetHeight - 20;
-           left = window.innerWidth/2 - nativeElement.offsetWidth/2;
+           //top = window.innerHeight - nativeElement.offsetHeight - 20;
+           //left = window.innerWidth/2 - nativeElement.offsetWidth/2;
+           top = window.innerHeight / 2;
+           left = 50;
        }
        $('#datainput-panel').css('top', top + 'px');
        $('#datainput-panel').css('left', left + 'px');
