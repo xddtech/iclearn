@@ -1,4 +1,4 @@
-import {Component, ElementRef, ViewChild, AfterViewInit, OnDestroy} from '@angular/core';
+import {Component, ElementRef, ViewChild, AfterViewInit, OnDestroy, OnInit} from '@angular/core';
 import {ElementDraggable} from '../../utils/element-draggable';
 import {AppService} from '../../services/app-service';
 import {AppStates} from '../../services/app-states';
@@ -14,7 +14,7 @@ declare var $: any;
     styleUrls: ['./modelnav-panel.css'],
     providers: [AppService, AppStates]
  })
- export default class ModelNavPanelComponent implements AfterViewInit, OnDestroy {
+ export default class ModelNavPanelComponent implements AfterViewInit, OnDestroy, OnInit {
     @ViewChild('modelNavPanel') modelNavPanelRef: ElementRef;
     @ViewChild('layersNavPanel') layersNavPanelRef: ElementRef;
     @ViewChild('dataInputPanel') dataInputPanelRef: ElementRef;
@@ -29,6 +29,13 @@ declare var $: any;
     constructor(private appService: AppService, private appStates: AppStates) {}
  
     ngAfterViewInit() {
+    }
+
+    ngOnInit() {
+        this.viewInit();
+    }
+
+    viewInit() {
        var top;
        var left;
        var prevPos = ElementDraggable.dragElementsPos['modelnav-panel'];
