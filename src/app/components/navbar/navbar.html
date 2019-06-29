@@ -1,12 +1,8 @@
-<nav #appNavbar class="navbar navbar-inverse navbar-customized" role="navigation">
-  <div class="">
-     <span class="brand-style">iclearn</span>
-  </div>
+<div #appNavbar class="container-fluid navbar-general">
+   <span class="brand-item brand-style">iclearn</span>
 
-  <ul class="nav navbar-nav">
-       <li><a routerLink="/">Home</a></li>
-       <li><a routerLink="/model">Model</a></li>
-       <li><a routerLink="/about">About</a></li>
-       <li *ngIf="showDebugRoute"><a routerLink="/debug">Debug</a></li>
-   </ul>
-</nav>
+   <button id="homeRoute" (click)="clickRoute($event)" class="navitem-general">Home</button>
+   <button id="modelRoute" (click)="clickRoute($event)" class="navitem-general">Model</button>
+   <button id="aboutRoute" (click)="clickRoute($event)" class="navitem-general">About</button>
+   <button id="debugRoute" (click)="clickRoute($event)" *ngIf="showDebugRoute" class="navitem-general">Debug</button>
+</div>
