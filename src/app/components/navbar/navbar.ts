@@ -1,5 +1,5 @@
 import {Component, ElementRef, ViewChild, AfterViewInit} from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import {AppStates} from '../../services/app-states';
 import {AppConfig} from '../../app.config';
 
@@ -23,7 +23,7 @@ export default class NavbarComponent implements AfterViewInit {
    activeRoute = "";
    showDebugRoute = AppConfig.showDebugRoute;
 
-   constructor(private appStates: AppStates, private router: Router) {
+   constructor(private appStates: AppStates, private router: Router, private activatedRoute: ActivatedRoute) {
        /*
       router.events.subscribe(val => {
         if (location.path() != "") {
@@ -37,9 +37,18 @@ export default class NavbarComponent implements AfterViewInit {
 
    ngAfterViewInit() {
       AppStates.navbarElem = this.navbarElement;
-
-      this.activeRoute = 'homeRoute';
-      $('#' + this.activeRoute).addClass('navitem-active');
+      this.router.events.subscribe(event => {
+          if (event instanceof NavigationEnd) {
+             this.activeRoute = 'homeRoute';
+             for (let key in this.routeMap) {
+                if (this.routeMap[key] === event.url) {
+                   this.activeRoute = key;
+                   break;
+                }
+             }
+             $('#' + this.activeRoute).addClass('navitem-active');
+          }
+      });
    }
 
    clickRoute($event: any) {
