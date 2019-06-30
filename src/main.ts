@@ -8,5 +8,16 @@ if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.error(err));
+const entryUrl = new URL(window.document.location.href);
+let hash = entryUrl.hash;
+if (hash != null && hash.startsWith('#/model')) {
+   // redirect to home
+   entryUrl.hash = '';
+   window.location.href = entryUrl.href;
+}
+
+let delay = Promise.resolve();
+delay.then(() => {
+   platformBrowserDynamic().bootstrapModule(AppModule);
+}).catch(err => console.error('iclearn app bootstrap error, ' + err));
+

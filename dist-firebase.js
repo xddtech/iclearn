@@ -12,9 +12,9 @@ var opts = {
 };
 
 ncp(source, dest, opts, function (err) {
-   console.log('Start dist-github: source=' + source +', dest=' + dest);
+   console.log('Start dist-firebase: source=' + source +', dest=' + dest);
    if (err) {
-      return console.error('dist-github failed, ' + err);
+      return console.error('dist-firebase failed, ' + err);
    }
-   console.log('dist-github done!');
+   console.log('dist-firebase done!');
 });

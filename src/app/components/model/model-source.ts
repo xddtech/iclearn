@@ -62,7 +62,7 @@ export default class ModelSourceComponent implements AfterViewInit, OnInit, Afte
         this.generateModelDetail();
      } else {
         this.neuronsModelName = "undefined";
-        this.sourceDetail = "neuronsModelSrc is null";
+        this.sourceDetail = "The neurons model has not been loaded. Go to the Home screen first.";
      }
      this.neuronsModelPath = AppStates.neuronsModelPath;
      this.sourceHtmlDetail = this.sanitizer.bypassSecurityTrustHtml(this.sourceDetail);

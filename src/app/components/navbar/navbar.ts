@@ -1,4 +1,4 @@
-import {Component, ElementRef, ViewChild, AfterViewInit} from '@angular/core';
+import {Component, ElementRef, ViewChild, AfterViewInit, OnInit} from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import {AppStates} from '../../services/app-states';
 import {AppConfig} from '../../app.config';
@@ -11,7 +11,7 @@ declare var $: any;
    styleUrls: ['./navbar.css'],
    providers: [AppStates]
 })
-export default class NavbarComponent implements AfterViewInit {
+export default class NavbarComponent implements AfterViewInit, OnInit {
    @ViewChild('appNavbar') navbarElement: ElementRef;
 
    routeMap = {
@@ -24,15 +24,9 @@ export default class NavbarComponent implements AfterViewInit {
    showDebugRoute = AppConfig.showDebugRoute;
 
    constructor(private appStates: AppStates, private router: Router, private activatedRoute: ActivatedRoute) {
-       /*
-      router.events.subscribe(val => {
-        if (location.path() != "") {
-          this.route = location.path();
-        } else {
-          this.route = "Home";
-        }
-      });
-      */
+   }
+
+   ngOnInit() {
    }
 
    ngAfterViewInit() {
