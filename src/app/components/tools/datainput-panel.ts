@@ -48,7 +48,8 @@ export default class DataInputPanelComponent implements AfterViewInit, AfterCont
          bg = 'rgba(0, 0, 0, 0)!important';
       }
       // not work??
-      $('#expected-input').css('background-color', 'red !important');
+      //$('#expected-input-td').css('background', 'red !important');
+      //$('#expected-input').css('background', 'red !important');
    }
 
    processInput() {

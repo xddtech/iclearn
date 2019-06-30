@@ -40,7 +40,7 @@
 
 #input-table {
     width: 100% !important;
-    background: rgba(250, 250, 250, 1.0)!important;
+    background: rgb(200, 200, 250)!important;
 }
 
 .input-table-x {
@@ -67,5 +67,9 @@
     width: 10px;
     margin: 0px;
     padding: 0px;
-    background: rgba(250, 250, 250, 1)!important;
-  }
+    background: rgba(250, 250, 250, 1);
+}
+
+.input-disabled {
+    background: lightgrey !important;
+}
