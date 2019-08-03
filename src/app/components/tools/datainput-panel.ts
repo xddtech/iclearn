@@ -7,6 +7,7 @@ import {NeuronsModelView} from '../neurons/neurons-model-view';
 import {NeuronsModel} from '../model/neurons-model';
 import {ModelLayer} from '../model/model-layer';
 import {ModelMain} from '../neurons/model-main';
+import {ModelCell} from '../model/model-cell';
 
 declare var $: any;
 
@@ -25,14 +26,31 @@ export default class DataInputPanelComponent implements AfterViewInit, AfterCont
    inputType = 'Predict';
    expectedDisabled = true;
    inputLayer: ModelLayer;
+   inputCellList: ModelCell[] = [];
 
-   constructor(private appService: AppService, private appStates: AppStates) {}
+   constructor(private appService: AppService, private appStates: AppStates) {
+   }
+
+   init() {
+      this.inputCellList = [];
+      if ( !this.neuronsModel ) {
+         console.error('inputPanel has no neurons model');
+         return;
+      }
+      this.inputLayer = this.neuronsModel.layers[0];
+      for (var index = 0; index < this.inputLayer.cellList.length; index++) {
+         var cell = this.inputLayer.cellList[index];
+         if (cell.cellType !== ModelCell.BIAS) {
+            this.inputCellList.push(cell);
+         }
+      }
+   }
 
    ngAfterViewInit() {
-      //this.inputLayer = this.neuronsModel.layers[0];
    }
 
    ngAfterContentChecked() {
+      this.init();
    }
 
    ngOnDestroy() {

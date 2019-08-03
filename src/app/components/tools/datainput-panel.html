@@ -16,7 +16,7 @@
         <table id="input-table" border="1" class="input-table-x">
             <thead>
             <tr>
-               <th *ngFor="let cell of neuronsModel.layers[0].cellList; let i = index">
+               <th *ngFor="let cell of inputCellList; let i = index">
                    {{cell.getDescription()}}
                </th>
                <th>expected</th>
@@ -24,7 +24,7 @@
             </thead>
             <tbody>
             <tr>
-               <td *ngFor="let cell of neuronsModel.layers[0].cellList; let i = index">
+               <td *ngFor="let cell of inputCellList; let i = index">
                    <input id="input-value-{{cell.seqIndex}}" autocomplete="off" />
                </td>
                <td id="expected-input-td" [ngClass]="{'input-disabled': expectedDisabled}"><input id="expected-input" [disabled]="expectedDisabled" /></td>
