@@ -9,6 +9,9 @@ import {NeuronsModel} from '../components/model/neurons-model';
 @Injectable()
 export class AppService {
 
+  modelPathList = ['/assets/default-neurons-model.json', '/assets/iris-model-4+3@10+3.json'];
+  defaultModelPath = this.modelPathList[1];
+
   constructor(private http: HttpClient) {}
 
   getAboutHtml() {
@@ -21,7 +24,7 @@ export class AppService {
   }
 
   loadDefaultModel(): Observable<NeuronsModel> {
-     var path = this.getBaseUrl() + '/assets/default-neurons-model.json';
+     var path = this.getBaseUrl() + this.defaultModelPath;
      return this.loadNeuronsModel(path);
   }
 
@@ -31,7 +34,7 @@ export class AppService {
   }
 
   loadDefaultModelSrc(): Observable<Object> {
-     var path = this.getBaseUrl() + '/assets/default-neurons-model.json';
+     var path = this.getBaseUrl() + this.defaultModelPath;
      return this.loadNeuronsModelSrc(path);
   }
 

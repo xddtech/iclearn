@@ -7,7 +7,7 @@ export class ModelLayer {
     static NET = 'NET';
     static INPUT = 'INPUT';
     static OUTPUT = 'OUTPUT';
-    static DENSELAYER = "DenseLayer";
+    static DENSELAYER = "DenseLink";
 
     layerType: string;
     linkType: string;

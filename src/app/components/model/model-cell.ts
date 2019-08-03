@@ -47,8 +47,8 @@ export class ModelCell {
        this.createCellLinks(layerGroup);
 
        if (this.label != null) {
-        this.createCellLabel();
-      }
+          this.createCellLabel(layerGroup, layerType);
+       }
     }
 
     createMesh(layerType: string) {
@@ -100,7 +100,35 @@ export class ModelCell {
        return line;
     }
 
-    createCellLabel(): void {
+    createCellLabel(layerGroup: THREE.Group, layerType: string): void {
+       var ctype = this.cellType == null? layerType : this.cellType;
+       if (ctype !== ModelCell.INPUT && ctype !== ModelCell.OUTPUT) {
+          return;
+       }
+       var lsize = 0.1;
+       var lheight = 0.025;
+       var dx = 0;
+       var dy = 0;
+       if (ctype == ModelCell.INPUT) {
+          dx = -0.05;
+          dy = -this.inputSize - 0.3;
+       } else if (ctype == ModelCell.OUTPUT) {
+          dx = -0.05;
+          dy = this.inputSize/2 + 0.05;
+       }
+       var param = {
+         size: lsize,
+         height: lheight
+       };
+       var textGeo = new THREE.TextGeometry(this.label, <THREE.TextGeometryParameters>param);
+       var material = new THREE.MeshPhongMaterial({ color: 0x000000, flatShading: true });
+       textGeo.computeBoundingBox();
+       textGeo.computeVertexNormals();
+       var mesh = new THREE.Mesh(textGeo, material);
+       mesh.position.x = this.xyz[0] + dx;
+       mesh.position.y = this.xyz[1] + dy;
+       mesh.position.z = this.xyz[2];
+       layerGroup.add(mesh);
     }
 
     getDescription(): any {

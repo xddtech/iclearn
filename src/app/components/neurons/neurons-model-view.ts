@@ -73,6 +73,16 @@ export class NeuronsModelView {
       trackball.addEventListener('change', NeuronsModelView.renderScene);
    }
 
+   static adjustCamera(dx: number, dy: number, dz: number) {
+      var  camera = NeuronsModelView.viewCamera;
+      if (!camera) {
+         return;
+      }
+      camera.position.x = camera.position.x + dx;
+      camera.position.y = camera.position.y + dy;
+      camera.position.z = camera.position.z + dz;
+   }
+
    redisplay() {
     window.addEventListener("resize", NeuronsModelView.onWindowResize);
     NeuronsModelView.listenNeuronsStageEvents();

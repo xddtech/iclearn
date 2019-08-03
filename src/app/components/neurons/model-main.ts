@@ -49,6 +49,8 @@ export class ModelMain {
          this.appStates.setCurrentNeuronsModel(this.neuronsModel, srcJson);
          // preprocess the model
          this.neuronsModel.preProcess();
+         // adjust camera
+         this.adjustRootPosition();
          // create graphs
          this.neuronsModel.create(this.rootGroup);
       });
@@ -61,6 +63,19 @@ export class ModelMain {
       //this.rootGroup.add(object);
 
       this.loadCreateModel();
+   }
+
+   adjustRootPosition() {
+      if (!this.neuronsModel || !this.neuronsModel.layers) {
+         return;
+      }
+      var length = this.neuronsModel.layers.length;
+      var dsize = length - 4;
+      if (dsize <= 0) {
+         return;
+      }
+      var factor = 1;
+      this.rootGroup.position.y = this.rootGroup.position.y - dsize * factor;
    }
 
    static toggleLayerVisibility(index: number, visible: boolean) {
