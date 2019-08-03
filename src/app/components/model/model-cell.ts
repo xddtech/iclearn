@@ -6,6 +6,7 @@ import {OutputCell} from './output-cell';
 import {BiasCell} from './bias-cell';
 import {LinkInfo} from './link-info';
 import {ModelMain} from '../neurons/model-main';
+import {AppConfig} from '../../app.config';
 
 
 export class ModelCell {
@@ -111,12 +112,13 @@ export class ModelCell {
        var dy = 0;
        if (ctype == ModelCell.INPUT) {
           dx = -0.05;
-          dy = -this.inputSize - 0.3;
+          dy = -this.inputSize - 0.125;
        } else if (ctype == ModelCell.OUTPUT) {
           dx = -0.05;
           dy = this.inputSize/2 + 0.05;
        }
        var param = {
+         font: AppConfig.labelFont,
          size: lsize,
          height: lheight
        };

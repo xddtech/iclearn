@@ -36,6 +36,7 @@ export class NeuronsModel {
        this.collectModelInfo();
        this.setupLayout();
        this.setupLayerLinks();
+       this.setupLabels();
     }
 
     collectModelInfo() {
@@ -89,6 +90,25 @@ export class NeuronsModel {
           var nextLayer = this.layers[index + 1];
           this.connectLayers(layer, nextLayer);
        }
+    }
+
+    setupLabels() {
+       var incells = this.layers[0].cellList;
+       var index: number;
+       for (index = 0; index < incells.length; index++) {
+          var cell = incells[index];
+          if ( !cell.label ) {
+             cell.label = '' + (index + 1);
+          }
+        }
+
+        var outcells = this.layers[this.layers.length - 1].cellList;
+        for (index = 0; index < outcells.length; index++) {
+           var cell = outcells[index];
+           if ( !cell.label ) {
+              cell.label = '' + (index + 1);
+           }
+        }
     }
 
     connectLayers(layer: ModelLayer, nextLayer: ModelLayer) {
