@@ -15,6 +15,7 @@ export class ModelLayer {
     layerHeight: number;
     cellList: ModelCell[] = [];
     hasBias: boolean = false;
+    wrange: number[] = [0, 0];
 
     layerGroup: THREE.Group;
 
@@ -27,7 +28,7 @@ export class ModelLayer {
       rootGroup.add(this.layerGroup);
        var i: number;
        for (i = 0; i < this.cellList.length; i++) {
-          this.cellList[i].create(this.layerGroup, this.layerType);
+          this.cellList[i].create(this.layerGroup, this.layerType, this);
        }
     }
 
@@ -35,6 +36,17 @@ export class ModelLayer {
       for (let i in this.cellList) {
          if (this.cellList[i].cellType == ModelCell.BIAS) {
             this.hasBias = true;
+         }
+         if (this.cellList[i].W) {
+            var wlist = this.cellList[i].W;
+            for (let k in wlist) {
+               var w = wlist[k];
+               if (w < 0 && w < this.wrange[0]) {
+                  this.wrange[0] = w;
+               } else if (w > 0 && w > this.wrange[1]) {
+                  this.wrange[1] = w;
+               }
+            }
          }
       }
     }

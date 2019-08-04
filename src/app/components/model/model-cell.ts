@@ -7,6 +7,7 @@ import {BiasCell} from './bias-cell';
 import {LinkInfo} from './link-info';
 import {ModelMain} from '../neurons/model-main';
 import {AppConfig} from '../../app.config';
+import {ModelLayer} from './model-layer';
 
 
 export class ModelCell {
@@ -24,6 +25,7 @@ export class ModelCell {
     label: string;
     activation: string;
     W: number[] = [];
+    layerRef: ModelLayer;
 
     xyz: number[] = [0, 0, 0];
     cellMesh: THREE.Mesh;
@@ -32,7 +34,8 @@ export class ModelCell {
 
     constructor() {}
 
-    create(layerGroup: THREE.Group, layerType: string): void {
+    create(layerGroup: THREE.Group, layerType: string, layerRef: ModelLayer): void {
+       this.layerRef = layerRef;
        this.createMesh(layerType);
        if ( !this.cellMesh ) {
           console.error('Failed to create cell mesh at layer ' + this.layerIndex + ', cell seqIndex ' + this.seqIndex);
@@ -113,9 +116,23 @@ export class ModelCell {
     }
 
     getLinkColor(toW: number): any {
-       var red = (toW > 0)? 255 : 10;
-       var green = (toW > 0)? 10 : 10;
-       var blue = (toW > 0)? 10 : 255;
+       var wrange = this.layerRef.wrange;
+       var dead = 10;
+       var red = dead;
+       var green = dead;
+       var blue = dead;
+       var enlarge = 4;
+       if (toW > 0) {
+          red = enlarge * 255 * toW / (wrange[1] + 0.00001);
+          red = Math.floor(red);
+          red = (red < dead) ? dead : red;
+          red = (red > 255) ? 255 : red;
+       } else if (toW < 0) {
+          blue = enlarge * 255 * toW / (wrange[0] - 0.00001);
+          blue = Math.floor(blue);
+          blue = (blue < dead) ? dead : blue;
+          blue = (blue > 255) ? 255 : blue;
+       }
        var col = 'rgb(' + red + ', ' + green + ', ' + blue + ')';
        return { color: col};
     }
