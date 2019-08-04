@@ -34,7 +34,7 @@ export default class DataInputPanelComponent implements AfterViewInit, AfterCont
    init() {
       this.inputCellList = [];
       if ( !this.neuronsModel ) {
-         console.error('inputPanel has no neurons model');
+         //console.error('inputPanel has no neurons model');
          return;
       }
       this.inputLayer = this.neuronsModel.layers[0];

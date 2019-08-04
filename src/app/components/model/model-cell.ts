@@ -23,6 +23,7 @@ export class ModelCell {
     seqIndex: number;
     label: string;
     activation: string;
+    W: number[] = [];
 
     xyz: number[] = [0, 0, 0];
     cellMesh: THREE.Mesh;
@@ -82,16 +83,26 @@ export class ModelCell {
        if (this.linkToList == null || this.linkToList.length == 0) {
           return;
        }
-       for (let i in this.linkToList) {
-          var linkInfo = this.linkToList[i];
+       var index = 0;
+       for (index = 0; index < this.linkToList.length; index++) {
+          var linkInfo = this.linkToList[index];
           var toCell = ModelMain.currentNeoronsModel.getCellOnLink(linkInfo);
-          var line = this.createLinkLine(toCell);
+          var toW = this.getToW(index);
+          var line = this.createLinkLine(toCell, toW);
           layerGroup.add(line);
        }
     }
 
-    createLinkLine(toCell: ModelCell): THREE.Line {
-       var material = new THREE.LineBasicMaterial( { color: 0x0000ff } );
+    getToW(index: number): number {
+       if ( !this.W || (index >= this.W.length)) {
+          return 0;
+       }
+       return this.W[index];
+    }
+
+    createLinkLine(toCell: ModelCell, toW: number): THREE.Line {
+       var linkColor = this.getLinkColor(toW);
+       var material = new THREE.LineBasicMaterial( linkColor );
        var geometry = new THREE.Geometry();
        var from = new THREE.Vector3(this.xyz[0], this.xyz[1], this.xyz[2]);
        var to = new THREE.Vector3(toCell.xyz[0], toCell.xyz[1], toCell.xyz[2]);
@@ -99,6 +110,14 @@ export class ModelCell {
        geometry.vertices.push(to);
        var line = new THREE.Line( geometry, material );
        return line;
+    }
+
+    getLinkColor(toW: number): any {
+       var red = (toW > 0)? 255 : 10;
+       var green = (toW > 0)? 10 : 10;
+       var blue = (toW > 0)? 10 : 255;
+       var col = 'rgb(' + red + ', ' + green + ', ' + blue + ')';
+       return { color: col};
     }
 
     createCellLabel(layerGroup: THREE.Group, layerType: string): void {
